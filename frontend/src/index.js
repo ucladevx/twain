@@ -1,12 +1,14 @@
 import React from 'react'
 import { render } from 'react-dom'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
-class App extends React.Component {
-    render() {
-        return (
-            <div>Hello World</div>
-        )
-    } 
+
+const App = () => {
+    return (
+        <Router>
+            <Route path='/' component={() => (<div>Hello World</div>)} />
+        </Router>
+    )
 }
 
 render(<App />, document.getElementById('mount'))
