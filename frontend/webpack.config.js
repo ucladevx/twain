@@ -3,11 +3,12 @@ const webpack = require('webpack')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 
 module.exports = env => ({
-    entry: ['@babel/polyfill', './src/index.js'],
+    entry: ['@babel/polyfill', './src/index.tsx'],
   output: {
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist')
   },
+  devtool: "source-map",
   optimization: {
     runtimeChunk: 'single',
     splitChunks: {
@@ -27,7 +28,7 @@ module.exports = env => ({
     }
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.ts', '.tsx', '.js', '.json']
   },
   module: {
     rules: [
@@ -55,7 +56,9 @@ module.exports = env => ({
         use: {
           loader: 'html-loader'
         }
-      }
+      },
+      { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
+      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
     ]
   },
   plugins: [

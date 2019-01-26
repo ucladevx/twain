@@ -1,5 +1,5 @@
-import React from 'react'
-import { render } from 'react-dom'
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
 
 import FakeButton from './components/FakeButton'
 
@@ -8,10 +8,10 @@ class App extends React.Component {
         return (
             <div>
                 <div>Hello World</div>
-                <FakeButton/>
+                <FakeButton text="hellloooooo"/>
             </div>
         )
     } 
 }
 
-render(<App />, document.getElementById('mount'))
+ReactDOM.render(<App />, document.getElementById('mount'))
