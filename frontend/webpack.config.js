@@ -1,7 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = env => ({
     entry: ['@babel/polyfill', './src/index.js'],
@@ -40,14 +39,6 @@ module.exports = env => ({
         }
       },
       {
-        test: /\.scss$/,
-        use: [
-          env.production ? MiniCssExtractPlugin.loader : 'style-loader',
-          { loader: 'css-loader', options: { url: false, sourceMap: true } },
-          { loader: 'sass-loader', options: { sourceMap: true } }
-        ]
-      },
-      {
         test: /\.(jpg|png|svg|pdf)$/,
         use: {
           loader: 'file-loader',
@@ -65,9 +56,6 @@ module.exports = env => ({
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: env.production ? '[name].[contenthash].css' : '[name].css',
-    }),
     new HtmlWebPackPlugin({
       template: './src/index.html',
       filename: 'index.html'
