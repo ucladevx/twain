@@ -1,9 +1,9 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-
+import React from 'react'
+import { render } from 'react-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import FakeButton from './components/FakeButton'
 
-class App extends React.Component {
+class Home extends React.Component {
     render() {
         return (
             <div>
@@ -13,5 +13,14 @@ class App extends React.Component {
         )
     } 
 }
+ 
+const App = () => {
+    return (
+        <Router>
+            <Route path='/' component={Home} />
+        </Router>
+    )
+}
 
-ReactDOM.render(<App />, document.getElementById('mount'))
+
+render(<App />, document.getElementById('mount'))
