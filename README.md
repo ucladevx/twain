@@ -1,3 +1,3 @@
-# Data Project 
+# Data Project
 
 To be named...
