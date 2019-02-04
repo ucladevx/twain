@@ -1,5 +1,5 @@
-<h1>Registration</h1>
-<form action="/register" method="post">
+<h1>Login</h1>
+<form action="/login" method="post">
     <p>Email</p>
     {{ form.email }}
     <p>Password</p>
@@ -7,5 +7,5 @@
     {{ form.hidden_tag() }}
     <br>
     <br>
-    <input type="submit" value="Submit">
+    <p>{{form.submit()}}</p>
 </form>
