@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+// import ReactDOM from 'react-dom'
+import { GoogleLogin } from 'react-google-login'
 
 const Wrapper = styled.div`
   display: grid;
@@ -23,6 +25,7 @@ const Content = styled.div`
   text-align: center;
   grid-row: 3;
   grid-column: 6 / span 2;
+  place-items: center;
 `
 
 class Login extends React.Component {
@@ -33,6 +36,10 @@ class Login extends React.Component {
       email: '',
       password: '',
     }
+  }
+
+  responseGoogle = response => {
+    console.log(response)
   }
 
   validateForm() {
@@ -83,10 +90,15 @@ class Login extends React.Component {
           <h1>Sandbox</h1>
         </Title>
         <Content>
-          <div
-            className="g-signin2"
-            data-onsuccess="onSignIn"
-            data-theme="dark"
+          <GoogleLogin
+            clientId="574982251056-km2laltubmenemsuka31uphh70km2oc0.apps.googleusercontent.com"
+            render={renderProps => (
+              <button onClick={renderProps.onClick}>
+                This is my custom Google button
+              </button>
+            )}
+            onSuccess={this.responseGoogle}
+            onFailure={this.responseGoogle}
           />
           <div className="Login">
             <form>
