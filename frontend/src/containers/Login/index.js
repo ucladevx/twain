@@ -1,18 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-// import ReactDOM from 'react-dom'
 import { GoogleLogin } from 'react-google-login'
-
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(6, 1fr);
-  grid-gap: 20px;
-  margin: 20px;
-  font-family: Karla;
-  font-style: normal;
-  line-height: normal;
-`
+import Wrapper from '../../components/Wrapper'
+// import ReactDOM from 'react-dom'
 
 const Title = styled.div`
   text-align: center;
@@ -58,21 +48,6 @@ class Login extends React.Component {
     })
   }
 
-  // onSignIn(googleUser) {
-  //   Useful data for your client-side scripts:
-  //   const profile = googleUser.getBasicProfile()
-  //   console.log('ID: ' + profile.getId()) // Don't send this directly to your server!
-  //   console.log('Full Name: ' + profile.getName())
-  //   console.log('Given Name: ' + profile.getGivenName())
-  //   console.log('Family Name: ' + profile.getFamilyName())
-  //   console.log('Image URL: ' + profile.getImageUrl())
-  //   console.log('Email: ' + profile.getEmail())
-
-  //   The ID token you need to pass to your backend:
-  //   const { id_token } = googleUser.getAuthResponse()
-  //   console.log('ID Token: ' + id_token)
-  // }
-
   handleSubmit = event => {
     console.log(
       JSON.stringify({
@@ -85,44 +60,46 @@ class Login extends React.Component {
 
   render() {
     return (
-      <Wrapper>
-        <Title>
-          <h1>Sandbox</h1>
-        </Title>
-        <Content>
-          <GoogleLogin
-            clientId="574982251056-km2laltubmenemsuka31uphh70km2oc0.apps.googleusercontent.com"
-            render={renderProps => (
-              <button onClick={renderProps.onClick}>
-                This is my custom Google button
-              </button>
-            )}
-            onSuccess={this.responseGoogle}
-            onFailure={this.responseGoogle}
-          />
-          <div className="Login">
-            <form>
-              Username:
-              <br />
-              <input
-                onChange={this.onEmailChange}
-                type="email"
-                name="email-address"
-              />
-              <br />
-              Password:
-              <br />
-              <input
-                onChange={this.onPasswordChange}
-                type="password"
-                name="password"
-              />
-              <br />
-              <button onClick={this.handleSubmit}>Submit</button>
-            </form>
-          </div>
-        </Content>
-      </Wrapper>
+      <div>
+        <Wrapper>
+          <Title>
+            <h1>Sandbox</h1>
+          </Title>
+          <Content>
+            <GoogleLogin
+              clientId="574982251056-km2laltubmenemsuka31uphh70km2oc0.apps.googleusercontent.com"
+              render={renderProps => (
+                <button onClick={renderProps.onClick}>
+                  Login With Google (custom button incoming)
+                </button>
+              )}
+              onSuccess={this.responseGoogle}
+              onFailure={this.responseGoogle}
+            />
+            <div className="Login">
+              <form>
+                Username:
+                <br />
+                <input
+                  onChange={this.onEmailChange}
+                  type="email"
+                  name="email-address"
+                />
+                <br />
+                Password:
+                <br />
+                <input
+                  onChange={this.onPasswordChange}
+                  type="password"
+                  name="password"
+                />
+                <br />
+                <button onClick={this.handleSubmit}>Submit</button>
+              </form>
+            </div>
+          </Content>
+        </Wrapper>
+      </div>
     )
   }
 }

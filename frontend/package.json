@@ -44,6 +44,7 @@
     "@types/react-router-dom": "^4.3.1",
     "@types/styled-components": "^4.1.6",
     "connected-react-router": "^6.2.2",
+    "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-google-login": "^5.0.0",
