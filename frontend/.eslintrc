@@ -24,7 +24,9 @@
         }
       },
       "plugins": ["@typescript-eslint"],
-      "rules": {}
+      "rules": {
+        "no-unused-vars": ["off"]
+      }
     }
   ],
   "env": {

@@ -1,25 +1,15 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import FakeButton from './components/FakeButton'
+import { Provider } from 'react-redux'
 
-class Home extends React.Component {
-  render() {
-    return (
-      <div>
-        <div>Hello World</div>
-        <FakeButton text="hellloooooo" color="peru" />
-      </div>
-    )
-  }
-}
+import App from './App'
+import configureStore from './configureStore'
 
-const App = () => {
-  return (
-    <Router>
-      <Route path="/" component={Home} />
-    </Router>
-  )
-}
+const store = configureStore()
 
-render(<App />, document.getElementById('mount'))
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('mount')
+)
