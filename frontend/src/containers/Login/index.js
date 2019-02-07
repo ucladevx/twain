@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { GoogleLogin } from 'react-google-login'
 import Wrapper from '../../components/Wrapper'
-// import ReactDOM from 'react-dom'
 
 const Title = styled.div`
   text-align: center;
@@ -30,10 +29,6 @@ class Login extends React.Component {
 
   responseGoogle = response => {
     console.log(response)
-  }
-
-  validateForm() {
-    return this.state.email.length > 0 && this.state.password.length > 0
   }
 
   onEmailChange = event => {
