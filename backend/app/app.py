@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, session, redirect, url_for, escape, render_template
+from flask_oauthlib.client import OAuth
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_required, login_user, logout_user, current_user
 from forms import RegForm, LoginForm 
@@ -7,56 +8,53 @@ from models import User
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'randomkey'
+app.config['GOOGLE_ID'] = "574982251056-km2laltubmenemsuka31uphh70km2oc0.apps.googleusercontent.com"
+app.config['GOOGLE_SECRET'] = "u-Z8wdXU3UAmc2uruNcSDySb";
+app.debug = True
+oauth = OAuth(app)
 
-connect(db = 'task-scheduler',
-    username = 'admin',
-    password = 'adminpassword',
-    host =  'mongodb://admin:adminpassword@task-scheduler-shard-00-00-x34zf.azure.mongodb.net:27017,task-scheduler-shard-00-01-x34zf.azure.mongodb.net:27017,task-scheduler-shard-00-02-x34zf.azure.mongodb.net:27017/test?ssl=true&replicaSet=task-scheduler-shard-0&authSource=admin&retryWrites=true')
-
-login_manager = LoginManager()
-login_manager.login_view = "login"
-login_manager.init_app(app)
-
+google = oauth.remote_app(
+    'google',
+    consumer_key=app.config.get('GOOGLE_ID'),
+    consumer_secret=app.config.get('GOOGLE_SECRET'),
+    request_token_params={
+        'scope': 'email'
+    },
+    base_url='https://www.googleapis.com/oauth2/v1/',
+    request_token_url=None,
+    access_token_method='POST',
+    access_token_url='https://accounts.google.com/o/oauth2/token',
+    authorize_url='https://accounts.google.com/o/oauth2/auth',
+)
 
 @app.route('/')
-def home():
-    return render_template('home.html')
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.objects(pk=user_id).first()
-
-
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
-
+def index():
+    if 'google_token' in session:
+        me = google.get('userinfo')
+        return jsonify({"data": me.data})
+    return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
-    if request.method == 'POST':
-        if form.validate():
-            user = User.objects(email=form.email.data).first()
-            if user is not None:
-                if check_password_hash(user.password, form.password.data):
-                    print ("User logged in")
-                    login_user(user)
-                    return redirect(url_for('dashboard'))
-    return render_template('login.html', form=form)
+    return google.authorize(callback=url_for('authorized', _external=True))
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    form = RegForm()
-    if request.method == 'POST':
-        if form.validate():
-            existing_user = User.objects(email=form.email.data).first()
-            if existing_user is None:
-                hashpass = generate_password_hash(form.password.data, method='sha256')
-                dbUser = User(form.first_name.data, form.last_name.data, form.email.data,hashpass).save()
-                login_user(dbUser)
-                return redirect(url_for('dashboard'))
-    return render_template('register.html', form=form)
+@app.route('/logout')
+def logout():
+    session.pop('google_token', None)
+    return redirect(url_for('index'))
 
+@app.route('/login/authorized')
+def authorized():
+    resp = google.authorized_response()
+    if resp is None:
+        return 'Access denied: reason=%s error=%s' % (
+            request.args['error_reason'],
+            request.args['error_description']
+        )
+    session['google_token'] = (resp['access_token'], '')
+    me = google.get('userinfo')
+    return jsonify({"data": me.data})
 
-
+@google.tokengetter
+def get_google_oath_token():
+    return session.get('google_token')
