@@ -3,17 +3,11 @@ import { render } from 'react-dom'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import FakeButton from './components/FakeButton'
 import Login from './containers/Login'
+import { Provider } from 'react-redux'
 
-class Home extends React.Component {
-  render() {
-    return (
-      <div>
-        <div>Hello World</div>
-        <FakeButton text="hellloooooo" color="peru" />
-      </div>
-    )
-  }
-}
+
+import App from './App'
+import configureStore from './configureStore'
 
 const App = () => {
   return (
@@ -25,5 +19,11 @@ const App = () => {
     </Router>
   )
 }
+const store = configureStore()
 
-render(<App />, document.getElementById('mount'))
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('mount')
+)
