@@ -62,7 +62,7 @@ class Login extends React.Component {
           </Title>
           <Content>
             <GoogleLogin
-              clientId="574982251056-km2laltubmenemsuka31uphh70km2oc0.apps.googleusercontent.com"
+              clientId="" //insert client ID
               render={renderProps => (
                 <button onClick={renderProps.onClick}>
                   Login With Google (custom button incoming)
