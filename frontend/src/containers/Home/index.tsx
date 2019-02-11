@@ -1,8 +1,8 @@
-import React from 'react'
+import * as React from 'react'
 
 import FakeButton from '../../components/FakeButton'
 
-const Home = () => {
+const Home: React.SFC = () => {
   return (
     <div>
       <div>Hello World</div>
