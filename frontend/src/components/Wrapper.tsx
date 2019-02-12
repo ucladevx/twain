@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
@@ -13,18 +13,16 @@ const TextWrapper = styled.div`
   line-height: normal;
 `
 
-class Wrapper extends React.Component {
-  render() {
-    return (
-      <div>
-        <TextWrapper>{this.props.children}</TextWrapper>
-      </div>
-    )
-  }
+interface WrapperProps {
+  children: React.ReactNode
 }
 
-Wrapper.propTypes = {
-  children: PropTypes.node.isRequired,
+const Wrapper: React.SFC = (props: WrapperProps) => {
+  return (
+    <div>
+      <TextWrapper>{props.children}</TextWrapper>
+    </div>
+  )
 }
 
 export default Wrapper

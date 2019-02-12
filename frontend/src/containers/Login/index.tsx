@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import styled from 'styled-components'
 import { GoogleLogin } from 'react-google-login'
 import Wrapper from '../../components/Wrapper'
@@ -17,33 +17,35 @@ const Content = styled.div`
   place-items: center;
 `
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props)
+const initialState = {
+  email: '',
+  password: '',
+}
 
-    this.state = {
-      email: '',
-      password: '',
-    }
-  }
+type State = Readonly<typeof initialState>
 
-  responseGoogle = response => {
+class Login extends React.Component<{}, State> {
+  readonly state: State = initialState
+
+  responseGoogle = (response: any): void => {
     console.log(response)
   }
 
-  onEmailChange = event => {
+  onEmailChange = (event: React.SyntheticEvent): void => {
+    const target = event.target as HTMLInputElement
     this.setState({
-      email: event.target.value,
+      email: target.value,
     })
   }
 
-  onPasswordChange = event => {
+  onPasswordChange = (event: React.SyntheticEvent): void => {
+    const target = event.target as HTMLInputElement
     this.setState({
-      password: event.target.value,
+      password: target.value,
     })
   }
 
-  handleSubmit = event => {
+  handleSubmit = (event: React.SyntheticEvent): void => {
     console.log(
       JSON.stringify({
         email: this.state.email,
@@ -62,7 +64,7 @@ class Login extends React.Component {
           </Title>
           <Content>
             <GoogleLogin
-              clientId="" //insert client ID
+              clientId="abcdef" /* insert client ID */
               render={renderProps => (
                 <button onClick={renderProps.onClick}>
                   Login With Google (custom button incoming)
