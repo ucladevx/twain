@@ -1,6 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { GoogleLogin } from 'react-google-login'
+import Config from '../../config'
 import Wrapper from '../../components/Wrapper'
 
 const Title = styled.div`
@@ -64,12 +65,7 @@ class Login extends React.Component<{}, State> {
           </Title>
           <Content>
             <GoogleLogin
-              clientId="abcdef" /* insert client ID */
-              render={renderProps => (
-                <button onClick={renderProps.onClick}>
-                  Login With Google (custom button incoming)
-                </button>
-              )}
+              clientId={Config.CLIENT_ID}
               onSuccess={this.responseGoogle}
               onFailure={this.responseGoogle}
             />
