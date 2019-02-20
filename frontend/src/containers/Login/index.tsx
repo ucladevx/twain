@@ -11,10 +11,32 @@ const Title = styled.div`
   place-items: center;
 `
 
+const GoogleSignInButton = styled.div`
+  padding: 10px;
+  border-radius: 5px;
+  border: solid #c4c4c4 1px;
+
+  &:hover {
+    cursor: pointer;
+    border: solid #c4c4c4 3px;
+    margin: -2px;
+  }
+`
+
+const GoogleSignInIcon = styled.div`
+  padding-right: 10px;
+  background: url('../public/g-logo.png') transparent 5px 50% no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  background-size: contain;
+  width: 24px;
+  height: 20px;
+`
+
 const Content = styled.div`
   text-align: center;
-  grid-row: 4;
-  grid-column: 6 / span 2;
+  grid-row: 3;
+  grid-column: 5 / span 4;
   place-items: center;
 `
 
@@ -61,15 +83,16 @@ class Login extends React.Component<{}, State> {
       <div>
         <Wrapper>
           <Title>
-            <h1>Scheduler</h1>
+            <h1>scheduler</h1>
           </Title>
           <Content>
             <GoogleLogin
-              clientId="" /* insert client ID */
+              clientId="abcdef" /* insert client ID */
               render={renderProps => (
-                <button onClick={renderProps.onClick}>
-                  Login With Google (custom button incoming)
-                </button>
+                <GoogleSignInButton onClick={renderProps.onClick}>
+                  <GoogleSignInIcon />
+                  Login With Google
+                </GoogleSignInButton>
               )}
               onSuccess={this.responseGoogle}
               onFailure={this.responseGoogle}
