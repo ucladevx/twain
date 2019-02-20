@@ -2,6 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { GoogleLogin } from 'react-google-login'
 import Wrapper from '../../components/Wrapper'
+import Card from '../../components/Card'
 
 const Title = styled.div`
   text-align: center;
@@ -12,7 +13,7 @@ const Title = styled.div`
 
 const Content = styled.div`
   text-align: center;
-  grid-row: 3;
+  grid-row: 4;
   grid-column: 6 / span 2;
   place-items: center;
 `
@@ -60,11 +61,11 @@ class Login extends React.Component<{}, State> {
       <div>
         <Wrapper>
           <Title>
-            <h1>Sandbox</h1>
+            <h1>Scheduler</h1>
           </Title>
           <Content>
             <GoogleLogin
-              clientId="abcdef" /* insert client ID */
+              clientId="" /* insert client ID */
               render={renderProps => (
                 <button onClick={renderProps.onClick}>
                   Login With Google (custom button incoming)
