@@ -7,7 +7,6 @@ RUN apt-get update -y && \
 RUN mkdir /var/backend
 COPY ./requirements.txt /var/backend/requirements.txt
 
-
 WORKDIR /var/backend
 RUN pip install -r requirements.txt
 
