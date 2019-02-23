@@ -18,17 +18,17 @@ const sequelize = new Sequelize('postgres', 'postgres', 'example', {
 
 
 app.get('/', (req, res) => {
-    sequelize
-      .authenticate()
+  sequelize
+    .authenticate()
       .then(() => {
-          res.send("Successful authentication")
+        res.send("Successful authentication")
       })
       .catch(err => {
-          console.error("Error: ", err)
-          res.send("faild to authenticate")
+        console.error("Error: ", err)
+        res.send("faild to authenticate")
       })
 })
 
 const server = app.listen(8080, () => {
-    console.log('listening on port 8080')
+  console.log('listening on port 8080')
 })
