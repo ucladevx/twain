@@ -9,6 +9,8 @@ services:
       - "5432:5432"
   activity-server:
     build: ./activity
-    depends_on: activity-db
+    depends_on: ["activity-db"]
+    ports:
+      - "8080:8080"
 
 
