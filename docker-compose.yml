@@ -12,5 +12,9 @@ services:
     depends_on: ["activity-db"]
     ports:
       - "8080:8080"
+  flask-backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
 
 
