@@ -1,6 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { GoogleLogin } from 'react-google-login'
+import Config from '../../config'
 import Wrapper from '../../components/Wrapper'
 import Card from '../../components/Card'
 import { Header, Subheader, Paragraph } from '../../components/Typography'
@@ -88,13 +89,13 @@ class Login extends React.Component<{}, State> {
           </Title>
           <Content>
             <GoogleLogin
-              clientId="abcdef" /* insert client ID */
               render={renderProps => (
                 <GoogleSignInButton onClick={renderProps.onClick}>
                   <GoogleSignInIcon />
                   Login With Google
                 </GoogleSignInButton>
               )}
+              clientId={Config.CLIENT_ID}
               onSuccess={this.responseGoogle}
               onFailure={this.responseGoogle}
             />
