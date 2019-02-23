@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { GoogleLogin } from 'react-google-login'
 import Wrapper from '../../components/Wrapper'
 import Card from '../../components/Card'
+import { Header, Subheader, Paragraph } from '../../components/Typography'
 
 const Title = styled.div`
   text-align: center;
@@ -18,8 +19,8 @@ const GoogleSignInButton = styled.div`
 
   &:hover {
     cursor: pointer;
-    border: solid #c4c4c4 3px;
-    margin: -2px;
+    border: solid #c4c4c4 2px;
+    margin: -1px;
   }
 `
 
@@ -83,7 +84,7 @@ class Login extends React.Component<{}, State> {
       <div>
         <Wrapper>
           <Title>
-            <h1>scheduler</h1>
+            <Header>scheduler</Header>
           </Title>
           <Content>
             <GoogleLogin
