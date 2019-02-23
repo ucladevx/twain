@@ -9,7 +9,7 @@ class Home extends React.Component {
     return (
       <div>
         <div>Hello World</div>
-        <Button text="hellloooooo" color="peru" />
+        <Button>Confirm</Button>
       </div>
     )
   }

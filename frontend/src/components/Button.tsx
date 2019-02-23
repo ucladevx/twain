@@ -5,18 +5,18 @@ interface StyledButtonProps {
   primary?: boolean
   danger?: boolean
   fillWidth?: boolean
+  children: React.ReactNode
 }
 
 const ButtonWrapper = styled.button`
   background: ${(props: StyledButtonProps) =>
     props.primary ? 'grey' : 'white'};
   width: ${(props: StyledButtonProps) => (props.fillWidth ? '100%' : 'auto')};
-  color: ${(props: StyledButtonProps) => (props.primary ? 'white' : 'grey')};
+  color: ${(props: StyledButtonProps) => (props.primary ? 'white' : 'black')};
   border-radius: 5px;
   border: solid #c4c4c4 1px;
   height: 3.125em;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
+  padding: 0 0.5em;
   outline: none;
   font-family: Cabin, sans-serif;
   font-weight: bold;
@@ -24,18 +24,11 @@ const ButtonWrapper = styled.button`
 
   &:hover {
     cursor: pointer;
-    border: solid #c4c4c4 2px;
-    margin: -1px;
+    border: solid black 1px;
   }
 `
 
-export default class Button extends React.Component<StyledButtonProps, {}> {
-  render() {
-    return (
-      <div>
-        <ButtonWrapper>Normal</ButtonWrapper>
-        <ButtonWrapper primary>Primary</ButtonWrapper>
-      </div>
-    )
-  }
+export default function Button(props: StyledButtonProps) {
+  const { children, ...styledProps } = props
+  return <ButtonWrapper {...styledProps}>{props.children}</ButtonWrapper>
 }
