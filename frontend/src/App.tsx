@@ -10,6 +10,8 @@ class Home extends React.Component {
       <div>
         <div>Hello World</div>
         <Button>Confirm</Button>
+        <Button primary>Primary</Button>
+        <Button fillWidth>Fill</Button>
       </div>
     )
   }

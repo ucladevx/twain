@@ -24,7 +24,6 @@ const ButtonWrapper = styled.button`
 
   &:hover {
     cursor: pointer;
-    border: solid black 1px;
   }
 `
 
