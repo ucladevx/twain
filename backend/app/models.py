@@ -6,4 +6,8 @@ class User(UserMixin, Document):
     first_name = StringField(max_length = 30)
     last_name = StringField(max_length = 50)
     email = StringField(max_length=30)
-    password = StringField()
+
+"""
+class Credential(Document):
+    meta = {'collection': 'db-credentials'}
+"""
