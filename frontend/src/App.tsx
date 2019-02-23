@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-import FakeButton from './components/FakeButton'
+import Button from './components/Button'
 import Login from './containers/Login'
 
 class Home extends React.Component {
@@ -9,7 +9,9 @@ class Home extends React.Component {
     return (
       <div>
         <div>Hello World</div>
-        <FakeButton text="hellloooooo" color="peru" />
+        <Button>Confirm</Button>
+        <Button primary>Primary</Button>
+        <Button fillWidth>Fill</Button>
       </div>
     )
   }
