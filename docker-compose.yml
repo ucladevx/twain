@@ -11,12 +11,17 @@ services:
     build: ./activity
     depends_on: ["activity-db"]
     ports:
+      - "8000:8000"
+  frontend:
+    build: ./frontend
+    ports:
       - "8080:8080"
+    volumes:
+      - ./frontend:/app:rw
+      - /app/node_modules
   flask-backend:
     build: ./backend
     ports:
       - "5000:5000"
     volumes: 
       - ./backend:/var/backend
-
-
