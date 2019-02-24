@@ -3,7 +3,7 @@
 build:
 	docker-compose build
 
-up:
+run:
 	docker-compose up -d
 
 down:
