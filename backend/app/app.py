@@ -53,24 +53,15 @@ def login():
         client_id = json.load(client_secret_file)['web']['client_id']
     
     try:
-        # Specify the CLIENT_ID of the app that accesses the backend:
+        # Verify token
         idinfo = id_token.verify_oauth2_token(token, requests.Request(), client_id)
 
-        # Or, if multiple clients access the backend server:
-        # idinfo = id_token.verify_oauth2_token(token, requests.Request())
-        # if idinfo['aud'] not in [CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]:
-        #     raise ValueError('Could not verify audience.')
-
+        #If token issuer not from Google, return error
         if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
             raise ValueError('Wrong issuer')
 
-        # If auth request is from a G Suite domain:
-        # if idinfo['hd'] != GSUITE_DOMAIN_NAME:
-        #     raise ValueError('Wrong hosted domain.')
-
-        # ID token is valid. Get the user's Google Account ID from the decoded token.
-        
-        user = User.objects(email=form.email.data).first()
+        # ID token is valid. Query database for user email and create account if necessary
+        user = User.objects(email=idinfo['email']).first()
         if user is None:
             user = User(idinfo['name'].split(' ')[0], idinfo['name'].split(' ')[1], idinfo['email']).save()
     
