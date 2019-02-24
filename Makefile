@@ -17,3 +17,6 @@ log-backend:
 
 pip-install: # usage: `make pip-install package=<package>`
 	docker exec -it $$(docker ps -q -f "ancestor=datateam_flask-backend") sh -c "cd /var/backend && pip install $(package) && pip freeze > requirements.txt"
+
+pip-uninstall: # usage: `make pip-uninstall package=<package>`
+	docker exec -it $$(docker ps -q -f "ancestor=datateam_flask-backend") sh -c "cd /var/backend && pip uninstall -y $(package) && pip freeze > requirements.txt"
