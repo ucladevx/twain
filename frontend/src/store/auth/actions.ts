@@ -24,7 +24,16 @@ export const onAuthSuccess = (
   dispatch(receiveAuthSuccess())
 }
 
-function onAuthFailure(error: string) {}
+export const onAuthFailure = (
+  error: string
+): ThunkAction<
+  void,
+  ApplicationState,
+  null,
+  Action<string>
+> => async dispatch => {
+  dispatch(receiveAuthFailure(error))
+}
 
 function receiveAuthSuccess() {
   return {
