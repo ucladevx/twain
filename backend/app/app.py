@@ -12,10 +12,17 @@ import os.path
 import json
 
 
+<<<<<<< HEAD
 class Response:
     def __init__(self, code, message):
         self.response_code = code
         self.response_message = message 
+=======
+class Error:
+    def __init__(self, code, message):
+        self.error_code = code
+        self.error_message = message 
+>>>>>>> abd0edef4edd1b4367a6be8642fb12fb0400567b
     
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, 
@@ -33,7 +40,14 @@ connect(db = 'task-scheduler',
 
 @app.route('/')
 def index():
+<<<<<<< HEAD
     return "Base route"
+=======
+    if 'google_token' in session:
+        me = google.get('userinfo')
+        return jsonify({"data": me.data})
+    return redirect(url_for('login'))
+>>>>>>> abd0edef4edd1b4367a6be8642fb12fb0400567b
     
 
 @app.route('/login', methods=['POST'])
@@ -77,7 +91,11 @@ def login():
         return jsonify(user)
     except ValueError:
         # Invalid token
+<<<<<<< HEAD
         return Reponse(301, "Error: token is invalid").toJSON()
+=======
+        return Error(301, "Token is invalid").toJSON()
+>>>>>>> abd0edef4edd1b4367a6be8642fb12fb0400567b
 
     
 
@@ -85,6 +103,10 @@ def login():
     # Retrieve credentials from authorization code 
     scopes = ['https://www.googleapis.com/auth/calendar']
     credentials = client.credentials_from_clientsecrets_and_code(client_secret_path, scopes, code)
+<<<<<<< HEAD
+=======
+
+>>>>>>> abd0edef4edd1b4367a6be8642fb12fb0400567b
     return jsonify(credentials)
     """
 
@@ -108,5 +130,10 @@ def return_calendar_data():
 
 @app.route('/logout')
 def logout():
+<<<<<<< HEAD
     logout_user()
     return Reponse(200, "User logged out.").toJSON()
+=======
+    session.pop('google_token', None)
+    return redirect(url_for(''))
+>>>>>>> abd0edef4edd1b4367a6be8642fb12fb0400567b
