@@ -1,8 +1,5 @@
 from flask import Flask, request, jsonify, session, redirect, url_for, escape, render_template
-from flask_oauthlib.client import OAuth
-from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_required, login_user, logout_user, current_user
-from forms import RegForm, LoginForm 
 from mongoengine import connect
 from models import User
 from googleapiclient.discovery import build
@@ -15,10 +12,10 @@ import os.path
 import json
 
 
-class Error:
+class Response:
     def __init__(self, code, message):
-        self.error_code = code
-        self.error_message = message 
+        self.response_code = code
+        self.response_message = message 
     
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, 
@@ -36,10 +33,7 @@ connect(db = 'task-scheduler',
 
 @app.route('/')
 def index():
-    if 'google_token' in session:
-        me = google.get('userinfo')
-        return jsonify({"data": me.data})
-    return redirect(url_for('login'))
+    return "Base route"
     
 
 @app.route('/login', methods=['POST'])
@@ -83,7 +77,7 @@ def login():
         return jsonify(user)
     except ValueError:
         # Invalid token
-        return Error(301, "Token is invalid").toJSON()
+        return Reponse(301, "Error: token is invalid").toJSON()
 
     
 
@@ -91,7 +85,6 @@ def login():
     # Retrieve credentials from authorization code 
     scopes = ['https://www.googleapis.com/auth/calendar']
     credentials = client.credentials_from_clientsecrets_and_code(client_secret_path, scopes, code)
-
     return jsonify(credentials)
     """
 
@@ -115,5 +108,5 @@ def return_calendar_data():
 
 @app.route('/logout')
 def logout():
-    session.pop('google_token', None)
-    return redirect(url_for(''))
+    logout_user()
+    return Reponse(200, "User logged out.").toJSON()
