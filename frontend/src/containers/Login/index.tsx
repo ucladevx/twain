@@ -17,7 +17,6 @@ const GoogleSignInButton = styled.div`
   padding: 10px;
   border-radius: 5px;
   border: solid #c4c4c4 1px;
-
   &:hover {
     cursor: pointer;
     border: solid #c4c4c4 2px;
