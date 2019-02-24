@@ -1,28 +1,20 @@
-export enum AuthActionTypes {
-  AUTH_REQUEST = 'AUTH_REQUEST',
-  AUTH_SUCCESS = 'AUTH_SUCCESS',
-  AUTH_ERROR = 'AUTH_ERROR',
-}
-
-interface AuthRequestAction {
-  type: AuthActionTypes.AUTH_REQUEST
-}
+export const AUTH_SUCCESS = 'AUTH_SUCCESS'
+export const AUTH_ERROR = 'AUTH_ERROR'
 
 interface AuthSuccessAction {
-  type: AuthActionTypes.AUTH_SUCCESS
-  payload: Auth
+  type: typeof AUTH_SUCCESS
 }
 
 interface AuthErrorAction {
-  type: AuthActionTypes.AUTH_ERROR
+  type: typeof AUTH_ERROR
   payload: string
 }
 
-export type AuthAction = AuthRequestAction | AuthSuccessAction | AuthErrorAction
+export type AuthAction = AuthSuccessAction | AuthErrorAction
 
 interface Auth {
-  userId: string
-  accessToken: string
+  id_token: string
+  auth_code: string
 }
 
 export interface AuthState {
