@@ -12,6 +12,9 @@ services:
     depends_on: ["activity-db"]
     ports:
       - "8000:8000"
+    volumes:
+      - ./activity:/var/server:rw
+      - /var/server/node_modules
   frontend:
     build: ./frontend
     ports:
