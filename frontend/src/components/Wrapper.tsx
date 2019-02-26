@@ -1,6 +1,5 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
 
 const TextWrapper = styled.div`
   display: grid;
@@ -8,7 +7,7 @@ const TextWrapper = styled.div`
   grid-template-rows: repeat(6, 1fr);
   grid-gap: 20px;
   margin: 20px;
-  font-family: Karla;
+  font-family: Cabin;
   font-style: normal;
   line-height: normal;
 `
