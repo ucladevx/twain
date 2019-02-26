@@ -29,6 +29,6 @@ app.get('/', (req, res) => {
       })
 })
 
-const server = app.listen(8080, () => {
+const server = app.listen(8000, () => {
   console.log('listening on port 8080')
 })
