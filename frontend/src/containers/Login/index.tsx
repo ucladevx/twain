@@ -61,7 +61,7 @@ class Login extends React.Component<{}, State> {
     )
   }
 
-  onFailure = (response: any): void => {
+  onFailureHandler = (response: any): void => {
     this.props.onAuthFailure(response.error)
   }
 
@@ -106,7 +106,7 @@ class Login extends React.Component<{}, State> {
               )}
               clientId={Config.CLIENT_ID}
               onSuccess={this.onSuccessHandler}
-              onFailure={this.onSuccessHandler}
+              onFailure={this.onFailureHandler}
             />
             <div className="Login">
               <form>
