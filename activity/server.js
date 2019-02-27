@@ -42,10 +42,12 @@ app.get('/', (req, res) => {
     })
 })
 
-// telling the app that localhost:8080/test 
+// telling the app that localhost:8080/activity
 // will use the code in the activity.js file
-app.use("/test", activity);
+app.use("/activity", activity);
 
+// serving at port 8000, NOT TO BE CONFUSED WITH 8080,
+// which is for the frontend
 const server = app.listen(8000, () => {
   console.log('listening on port 8000')
 })
