@@ -6,15 +6,15 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 from .models import User, Response 
 import os.path
+import json 
 
 routes_blueprint = Blueprint('routes', __name__)
 
 @routes_blueprint.route('/login', methods=['POST'])
 def login():
-    # Obtain authorization code and id_token from request body
+    # Obtain id_token from request body
     data = request.data
     data = json.loads(data)
-    authorization_code = data['auth_code']
     token = data['id_token']
 
     
