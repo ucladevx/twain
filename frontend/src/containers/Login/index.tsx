@@ -61,6 +61,10 @@ class Login extends React.Component<{}, State> {
     )
   }
 
+  onFailure = (response: any): void => {
+    this.props.onAuthFailure(response.error)
+  }
+
   onEmailChange = (event: React.SyntheticEvent): void => {
     const target = event.target as HTMLInputElement
     this.setState({
@@ -73,10 +77,6 @@ class Login extends React.Component<{}, State> {
     this.setState({
       password: target.value,
     })
-  }
-
-  onFailure = (response: any): void => {
-    onAuthFailure(response.error)
   }
 
   handleSubmit = (event: React.SyntheticEvent): void => {
@@ -140,6 +140,9 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     onAuthSuccess: (id_token: string, auth_code: string) => {
       dispatch(onAuthSuccess(id_token, auth_code))
+    },
+    onAuthFailure: (error: string) => {
+      dispatch(onAuthFailure(error))
     },
   }
 }
