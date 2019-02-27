@@ -8,9 +8,6 @@ import Wrapper from '../../components/Wrapper'
 import Card from '../../components/Card'
 import { Header, Subheader, Paragraph } from '../../components/Typography'
 import { onAuthSuccess, onAuthFailure } from '../../store/auth/actions'
-import { Action } from 'redux'
-import { ThunkDispatch } from 'redux-thunk'
-import { ApplicationState } from '../../store'
 
 const Title = styled.div`
   text-align: center;
@@ -57,12 +54,11 @@ type State = Readonly<typeof initialState>
 class Login extends React.Component<{}, State> {
   readonly state: State = initialState
 
-  constructor(props: any) {
-    super(props)
-  }
-
   onSuccessHandler = (response: any): void => {
-    onAuthSuccess(response.tokenObj.id_token, 'test test')
+    this.props.onAuthSuccess(
+      response.tokenObj.id_token,
+      response.tokenObj.access_token
+    )
   }
 
   onEmailChange = (event: React.SyntheticEvent): void => {
@@ -136,14 +132,13 @@ class Login extends React.Component<{}, State> {
   }
 }
 
-const mapDispatchToProps = (
-  dispatch: ThunkDispatch<ApplicationState, null, Action<string>>
-) => ({
-  onAuthSuccess: (id_token: string, auth_code: string) => {
-    console.log('test test')
-    dispatch(onAuthSuccess(id_token, auth_code))
-  },
-})
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    onAuthSuccess: (id_token: string, auth_code: string) => {
+      dispatch(onAuthSuccess(id_token, auth_code))
+    },
+  }
+}
 
 export default connect(
   null,

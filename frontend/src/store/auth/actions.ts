@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Action } from 'redux'
 import { ThunkAction } from 'redux-thunk'
-/*import fetch from 'cross-fetch'*/
+import fetch from 'cross-fetch'
 import { AUTH_SUCCESS, AUTH_ERROR } from './types'
 import { ApplicationState } from '..'
 
@@ -14,7 +14,6 @@ export const onAuthSuccess = (
   null,
   Action<string>
 > => async dispatch => {
-  console.log('hello')
   const data = { id_token, auth_code }
   await fetch('localhost:5000/login', {
     method: 'POST',
