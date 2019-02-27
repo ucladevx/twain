@@ -43,15 +43,6 @@ def login():
         # Invalid token
         return Response(301, "Error: Token is invalid").toJSON()
 
-    
-
-    """
-    # Retrieve credentials from authorization code 
-    scopes = ['https://www.googleapis.com/auth/calendar']
-    credentials = client.credentials_from_clientsecrets_and_code(client_secret_path, scopes, code)
-    return jsonify(credentials)
-    """
-
 @routes_blueprint.route('/calendar', methods=['GET'])
 def return_calendar_data():
         
