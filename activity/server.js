@@ -42,6 +42,6 @@ app.get('/', (req, res) => {
 // will use the code in the activity.js file
 app.use("/test", activity);
 
-const server = app.listen(8080, () => {
-  console.log('listening on port 8080')
+const server = app.listen(8000, () => {
+  console.log('listening on port 8000')
 })
