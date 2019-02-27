@@ -5,6 +5,7 @@ import Config from '../../config'
 import Wrapper from '../../components/Wrapper'
 import Card from '../../components/Card'
 import { Header, Subheader, Paragraph } from '../../components/Typography'
+import { onAuthFailure } from '../../store/auth/actions'
 
 const Title = styled.div`
   text-align: center;
@@ -67,6 +68,10 @@ class Login extends React.Component<{}, State> {
     this.setState({
       password: target.value,
     })
+  }
+
+  onFailure = (response: any): void => {
+    onAuthFailure(response.error)
   }
 
   handleSubmit = (event: React.SyntheticEvent): void => {
