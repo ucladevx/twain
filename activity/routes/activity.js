@@ -3,13 +3,14 @@ var router = express.Router();
 
 // the ending function for processing POST requests
 router.post("/", (request, response) => {
-    // if fields "user_id" and "activity_type" are both present, the request is valid
-    if (request.body.user_id != null && request.body.activity_type != null) {
-        response.send("valid request. adding row to SQL table\n");
+    const { body } = request;
+    // if either the "user_id" or "activity_type" field is empty,
+    // the request is invalid
+    if (!body.user_id || !body.activity_type) {
+        response.status(400).send("invalid request: expected fields not found\n");
     }
-    // else, the request is invalid
     else {
-        response.send("invalid request: all requests must include 'user_id' and 'activity_type' fields\n");
+        response.status(200).send("valid request. row added to SQL table\n");
     }
     // for debugging purposes
     response.json(req.body);
