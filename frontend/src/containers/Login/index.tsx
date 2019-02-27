@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { GoogleLogin } from 'react-google-login'
 import Config from '../../config'
 import Wrapper from '../../components/Wrapper'
+import Card from '../../components/Card'
+import { Header, Subheader, Paragraph } from '../../components/Typography'
 
 const Title = styled.div`
   text-align: center;
@@ -11,10 +13,31 @@ const Title = styled.div`
   place-items: center;
 `
 
+const GoogleSignInButton = styled.div`
+  padding: 10px;
+  border-radius: 5px;
+  border: solid #c4c4c4 1px;
+  &:hover {
+    cursor: pointer;
+    border: solid #c4c4c4 2px;
+    margin: -1px;
+  }
+`
+
+const GoogleSignInIcon = styled.div`
+  padding-right: 10px;
+  background: url('../public/g-logo.png') transparent 5px 50% no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+  background-size: contain;
+  width: 24px;
+  height: 20px;
+`
+
 const Content = styled.div`
   text-align: center;
   grid-row: 3;
-  grid-column: 6 / span 2;
+  grid-column: 5 / span 4;
   place-items: center;
 `
 
@@ -61,10 +84,16 @@ class Login extends React.Component<{}, State> {
       <div>
         <Wrapper>
           <Title>
-            <h1>Sandbox</h1>
+            <Header>scheduler</Header>
           </Title>
           <Content>
             <GoogleLogin
+              render={renderProps => (
+                <GoogleSignInButton onClick={renderProps.onClick}>
+                  <GoogleSignInIcon />
+                  Login With Google
+                </GoogleSignInButton>
+              )}
               clientId={Config.CLIENT_ID}
               onSuccess={this.responseGoogle}
               onFailure={this.responseGoogle}
