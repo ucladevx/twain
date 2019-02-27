@@ -1,44 +1,59 @@
-from flask import Flask, request, jsonify, session, redirect, url_for, escape, render_template
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_required, login_user, logout_user, current_user
-from forms import RegForm, LoginForm 
-from models import User
-from app import login_manager, app
+from flask import Blueprint, request, jsonify
+from flask_login import LoginManager, login_required, login_user, logout_user, current_user
+from googleapiclient.discovery import build
+from oauth2client import client
+from google.oauth2 import id_token
+from google.auth.transport import requests
+from .models import User, Response 
+import os.path
+import json 
 
-@app.route('/')
-def home():
-    pass
+routes_blueprint = Blueprint('routes', __name__)
 
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
-
-@app.route('/login', methods=['GET', 'POST'])
+@routes_blueprint.route('/login', methods=['POST'])
 def login():
-    form = LoginForm()
-    if request.method == 'POST':
-        if form.validate():
-            user = User.objects(email=form.email.data).first()
-            if user is not None:
-                if check_password_hash(user.password, form.password.data):
-                    print ("User logged in")
-                    login_user(user)
-                    return redirect(url_for('dashboard'))
-    return render_template('login.html', form=form)
+    # Obtain id_token from request body
+    data = request.data
+    data = json.loads(data)
+    token = data['id_token']
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    form = RegForm()
-    if request.method == 'POST':
-        if form.validate():
-            existing_user = User.objects(email=form.email.data).first()
-            if existing_user is None:
-                hashpass = generate_password_hash(form.password.data, method='sha256')
-                dbUser = User(form.first_name.data, form.last_name.data, form.email.data,hashpass).save()
-                login_user(dbUser)
-                return redirect(url_for('dashboard'))
-    return render_template('register.html', form=form)
+    # Retrieve client ID from client_secret file
+    if os.path.exists(os.getcwd() + '/app/client_secret.json'):
+        client_secret_path = os.getcwd() + '/app/client_secret.json'
+    
+    with open(client_secret_path, 'r') as client_secret_file:
+        client_id = json.load(client_secret_file)['web']['client_id']
+    
+    try:
+        # Verify token
+        idinfo = id_token.verify_oauth2_token(token, requests.Request(), client_id)
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.objects(pk=user_id).first()
+        #If token issuer not from Google, return error
+        if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
+            raise ValueError('Wrong issuer')
+
+        # ID token is valid. Query database for user email and create account if necessary
+        user = User.objects(email=idinfo['email']).first()
+        if user is None:
+            user = User(first_name = idinfo['name'].split(' ')[0], last_name = idinfo['name'].split(' ')[1], email = idinfo['email']).save()
+    
+        return user.toJSON()
+
+    except ValueError:
+        # Invalid token
+        return Response(301, "Error: Token is invalid").toJSON()
+
+@routes_blueprint.route('/calendar', methods=['GET'])
+def return_calendar_data():
+        
+    # Get path to client secret file
+    if os.path.exists(os.getcwd() + '/app/client_secret.json'):
+        client_secret_path = os.getcwd() + '/app/client_secret.json'
+
+    """ EXCHANGE ACCESS_CODE FOR CREDENTIALS (TODO) """
+
+    service = build('calendar', 'v3', credentials=credentials)
+
+    events = service.events().list(calendarId='primary', timeMin=now, maxResults=10)
+
+    return jsonify(events)
