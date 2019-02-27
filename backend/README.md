@@ -15,6 +15,6 @@
         ```python source /path/to/virtual/environment/bin/activate``` e.g. ```python source env/bin/activate``` <- from previous example  
 4. Now that you are inside your virtual environment, run the following command (inside the backend folder) to install all of the dependencies needed to run the server (***skip if the repository has been unchanged since your last repetition of this step***): 
     ```pip3 install -r requirements.txt```
-5. After installing all dependencies, you are ready to run the server on a local port. Navigate into the ```app``` directory and execute the ```flask run``` command to run the server. You should now have a running instance of the backend on ```localhost:5000```!
+5. After installing all dependencies, you are ready to run the server on a local port. Navigate into the ```backend``` directory and execute the ```flask run``` command to run the server. You should now have a running instance of the backend on ```localhost:5000```!
       
-6. If step 5 does not work, run the  ``` export FLASK_APP = app.py``` command inside the app directory to set the path of the flask app and redo step 5.
+6. If step 5 does not work, run the  ``` export FLASK_APP = app``` command inside the backend directory to set the path of the flask app and redo step 5.

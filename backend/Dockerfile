@@ -10,9 +10,9 @@ COPY ./requirements.txt /var/backend/requirements.txt
 WORKDIR /var/backend
 RUN pip install -r requirements.txt
 
-WORKDIR /var/backend/app
+WORKDIR /var/backend
 
-ENV FLASK_APP=app.py
+ENV FLASK_APP=app
 ENV FLASK_DEBUG=1
 ENTRYPOINT ["flask"]
 CMD ["run", "--host", "0.0.0.0"]

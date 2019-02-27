@@ -75,6 +75,10 @@ class Login extends React.Component<{}, State> {
     })
   }
 
+  onFailure = (response: any): void => {
+    onAuthFailure(response.error)
+  }
+
   handleSubmit = (event: React.SyntheticEvent): void => {
     console.log(
       JSON.stringify({
