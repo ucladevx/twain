@@ -1,9 +1,11 @@
 var express = require("express");
 var router = express.Router();
 
-router.post("/test", function (req, res) {
-    res.send("successful POST request made to /test route");
-    console.log("successful POST request made");
+// the ending function for processing POST requests
+router.post("/", (req, res) => {
+    console.log(req.body); // the JSON body of the POST request
+
+    res.json(req.body);
 });
 
 // ensuring that this code can exported to ../server.js
