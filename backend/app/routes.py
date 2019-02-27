@@ -17,7 +17,6 @@ def login():
     data = json.loads(data)
     token = data['id_token']
 
-    
     # Retrieve client ID from client_secret file
     if os.path.exists(os.getcwd() + '/app/client_secret.json'):
         client_secret_path = os.getcwd() + '/app/client_secret.json'
@@ -36,12 +35,13 @@ def login():
         # ID token is valid. Query database for user email and create account if necessary
         user = User.objects(email=idinfo['email']).first()
         if user is None:
-            user = User(idinfo['name'].split(' ')[0], idinfo['name'].split(' ')[1], idinfo['email']).save()
+            user = User(first_name = idinfo['name'].split(' ')[0], last_name = idinfo['name'].split(' ')[1], email = idinfo['email']).save()
     
-        return jsonify(user)
+        return user.toJSON()
+
     except ValueError:
         # Invalid token
-        return Response(301, "Error: token is invalid").toJSON()
+        return Response(301, "Error: Token is invalid").toJSON()
 
     
 
@@ -54,10 +54,12 @@ def login():
 
 @routes_blueprint.route('/calendar', methods=['GET'])
 def return_calendar_data():
+        
+    # Get path to client secret file
+    if os.path.exists(os.getcwd() + '/app/client_secret.json'):
+        client_secret_path = os.getcwd() + '/app/client_secret.json'
 
-    code = request.headers.get('code')
-    scopes = ['https://www.googleapis.com/auth/calendar']
-    credentials = client.credentials_from_clientsecrets_and_code(client_secret_path, scopes, code)
+    """ EXCHANGE ACCESS_CODE FOR CREDENTIALS (TODO) """
 
     service = build('calendar', 'v3', credentials=credentials)
 
