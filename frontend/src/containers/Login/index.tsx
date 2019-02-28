@@ -44,15 +44,24 @@ const Content = styled.div`
   place-items: center;
 `
 
-const initialState = {
-  email: '',
-  password: '',
+interface State {
+  email: string
+  password: string
 }
 
-type State = Readonly<typeof initialState>
+interface Props {
+  onAuthSuccess: (id_token: string, auth_code: string) => void
+  onAuthFailure: (error: string) => void
+}
 
-class Login extends React.Component<{}, State> {
-  readonly state: State = initialState
+class Login extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props)
+    this.state = {
+      email: '',
+      password: '',
+    }
+  }
 
   onSuccessHandler = (response: any): void => {
     this.props.onAuthSuccess(

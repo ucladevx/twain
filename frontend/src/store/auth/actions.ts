@@ -15,11 +15,12 @@ export const onAuthSuccess = (
   Action<string>
 > => async dispatch => {
   const data = { id_token, auth_code }
-  await fetch('localhost:5000/login', {
+  await fetch('http://localhost:5000/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
     body: JSON.stringify(data),
   })
   dispatch(receiveAuthSuccess())
