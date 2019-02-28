@@ -39,4 +39,8 @@ module.exports = (Sequelize, db) => {
             defaultValue: "profile"
         }
     })
+
+    // defining methods for interacting with the user
+
+    return user;
 }
