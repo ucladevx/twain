@@ -3,18 +3,18 @@ module.exports = (Sequelize, db) => {
         // universally unique identifier field
         uuid: {
             type: Sequelize.UUID,
-            defaultValue: Sequelize.UUIDV4
+            default_value: Sequelize.UUIDV4
         },
         // user's first name
         first_name: {
             type: Sequelize.STRING,
-            allowNull: false,
+            allow_null: false,
             validate: {
                 len: {
                     bounds: [2, 225],
                     error_message: "Your first name must be at least 2 characters long."
                 },
-                notEmpty: {
+                not_empty: {
                     error_message: "A first name is required."
                 }
             }
@@ -22,13 +22,13 @@ module.exports = (Sequelize, db) => {
         // user's last name
         last_name: {
             type: Sequelize.STRING,
-            allowNull: false,
+            allow_null: false,
             validate: {
                 len: {
                     bounds: [2, 225],
                     error_message: "Your last name must be at least 2 characters long."
                 },
-                notEmpty: {
+                not_empty: {
                     error_message: "A last name is required."
                 }
             }
