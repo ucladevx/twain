@@ -11,6 +11,12 @@ const Sequelize = require('sequelize')
 // for including activity.js and its route
 const activity = require("./routes/activity")
 
+// including different schema
+const userProfile = require("./schema/userprofile");
+const task = require("./schema/task");
+const event = require("./schema/event");
+const timeslot = require("./schema/timeslot");
+
 // creating a new Sequelize instance with
 // database: postgres
 // username: postgres
