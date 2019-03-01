@@ -1,11 +1,13 @@
+/* eslint-disable */
 import * as React from 'react'
 import styled from 'styled-components'
 import { GoogleLogin } from 'react-google-login'
+import { connect } from 'react-redux'
 import Config from '../../config'
 import Wrapper from '../../components/Wrapper'
 import Card from '../../components/Card'
 import { Header, Subheader, Paragraph } from '../../components/Typography'
-import { onAuthFailure } from '../../store/auth/actions'
+import { onAuthSuccess, onAuthFailure } from '../../store/auth/actions'
 
 const Title = styled.div`
   text-align: center;
@@ -42,18 +44,34 @@ const Content = styled.div`
   place-items: center;
 `
 
-const initialState = {
-  email: '',
-  password: '',
+interface State {
+  email: string
+  password: string
 }
 
-type State = Readonly<typeof initialState>
+interface Props {
+  onAuthSuccess: (id_token: string, auth_code: string) => void
+  onAuthFailure: (error: string) => void
+}
 
-class Login extends React.Component<{}, State> {
-  readonly state: State = initialState
+class Login extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props)
+    this.state = {
+      email: '',
+      password: '',
+    }
+  }
 
-  responseGoogle = (response: any): void => {
-    console.log(response)
+  onSuccessHandler = (response: any): void => {
+    this.props.onAuthSuccess(
+      response.tokenObj.id_token,
+      response.tokenObj.access_token
+    )
+  }
+
+  onFailureHandler = (response: any): void => {
+    this.props.onAuthFailure(response.error)
   }
 
   onEmailChange = (event: React.SyntheticEvent): void => {
@@ -68,10 +86,6 @@ class Login extends React.Component<{}, State> {
     this.setState({
       password: target.value,
     })
-  }
-
-  onFailure = (response: any): void => {
-    onAuthFailure(response.error)
   }
 
   handleSubmit = (event: React.SyntheticEvent): void => {
@@ -100,8 +114,8 @@ class Login extends React.Component<{}, State> {
                 </GoogleSignInButton>
               )}
               clientId={Config.CLIENT_ID}
-              onSuccess={this.responseGoogle}
-              onFailure={this.responseGoogle}
+              onSuccess={this.onSuccessHandler}
+              onFailure={this.onFailureHandler}
             />
             <div className="Login">
               <form>
@@ -131,4 +145,18 @@ class Login extends React.Component<{}, State> {
   }
 }
 
-export default Login
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    onAuthSuccess: (id_token: string, auth_code: string) => {
+      dispatch(onAuthSuccess(id_token, auth_code))
+    },
+    onAuthFailure: (error: string) => {
+      dispatch(onAuthFailure(error))
+    },
+  }
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Login)
