@@ -8,6 +8,7 @@ import Wrapper from '../../components/Wrapper'
 import Card from '../../components/Card'
 import { Header, Subheader, Paragraph } from '../../components/Typography'
 import { onAuthSuccess, onAuthFailure } from '../../store/auth/actions'
+import { Redirect } from 'react-router'
 
 const Title = styled.div`
   text-align: center;
@@ -149,6 +150,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     onAuthSuccess: (id_token: string, auth_code: string) => {
       dispatch(onAuthSuccess(id_token, auth_code))
+      return <Redirect to="/main" />
     },
     onAuthFailure: (error: string) => {
       dispatch(onAuthFailure(error))
