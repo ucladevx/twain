@@ -16,6 +16,7 @@ const userProfile = require("./schema/userprofile");
 const task = require("./schema/task");
 const event = require("./schema/event");
 const timeslot = require("./schema/timeslot");
+const table = require("./schema/table");
 
 // creating a new Sequelize instance with
 // database: postgres
