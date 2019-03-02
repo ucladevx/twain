@@ -1,15 +1,13 @@
 const express = require('express')
+const Sequelize = require('sequelize')
 const app = express()
 const bodyParser = require('body-parser')
 
 // middleware to parse JSON data
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 
-// the service we'll use to make SQL queries
-const Sequelize = require('sequelize')
-
-// for including activity.js and its route
 const activity = require("./routes/activity")
+const activityTable = require("./schema/activityTable")
 
 // creating a new Sequelize instance with
 // database: postgres
@@ -44,7 +42,7 @@ app.get('/', (req, res) => {
 
 // telling the app that localhost:8080/activity
 // will use the code in the activity.js file
-app.use("/activity", activity);
+app.use("/activity", activity)
 
 // serving at port 8000
 const server = app.listen(8000, () => {
