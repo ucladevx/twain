@@ -3,32 +3,35 @@ import styled from 'styled-components'
 import Wrapper from '../../components/Wrapper'
 import Card from '../../components/Card'
 import { Header, Subheader, Paragraph } from '../../components/Typography'
+import Button from '../../components/Button'
 
 const Title = styled.div`
-  text-align: center;
-  grid-row: 3;
-  grid-column: 6 / span 2;
-  place-items: center;
+  text-align: center
+  grid-row: 3
+  grid-column: 6 / span 2
+  place-items: center
 `
 
 const TaskList = styled.div`
-  display: grid
+  display: grid;
   background-color: #c4c4c4;
-  grid-column: 1 / 5
-  grid-row: 1 / 7
-  grid-gap: 20px;
+  grid-column: 1 / 5;
+  grid-row: 1 / 7;
   grid-template-rows: repeat(12, 1fr);
-  grid-template-columns: repeat(4, 1fr)
+  grid-template-columns: repeat(4, 1fr);
 `
 
-const TaskItem = styled.div``
+const TaskItem = styled.div`
+  padding: 0px 20px 20px 20px
+  align-content: space-evenly;
+  grid-column: 1 / span 4;
+`
 
 const CalendarView = styled.div`
-display: grid
+  display: grid
   grid-column: 5 / 13
   grid-row: 1 / 7
   border: solid red
-  grid-gap: 20px;
   grid-template-rows: repeat(12, 1fr);
   grid-template-columns: repeat(10, 1fr)
 `
@@ -39,9 +42,17 @@ class Main extends React.Component<{}, {}> {
       <div>
         <Wrapper>
           <TaskList>
-            <TaskItem>Task list</TaskItem>
+            <Header>Tasks</Header>
+            <TaskItem>
+              <Card>Task item1</Card>
+            </TaskItem>
+            <TaskItem>
+              <Card>Task item2</Card>
+            </TaskItem>
           </TaskList>
-          <CalendarView>Calendar</CalendarView>
+          <CalendarView>
+            <Header>Calendar</Header>
+          </CalendarView>
         </Wrapper>
       </div>
     )

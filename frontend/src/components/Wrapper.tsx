@@ -5,9 +5,7 @@ const TextWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(6, 1fr);
-  min-height: 85vh
-  grid-gap: 20px;
-  margin: 20px;
+  height:100%
   font-family: Cabin;
   font-style: normal;
   line-height: normal;
