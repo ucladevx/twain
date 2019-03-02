@@ -1,10 +1,44 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import Wrapper from '../../components/Wrapper'
+import Card from '../../components/Card'
+import { Header, Subheader, Paragraph } from '../../components/Typography'
+
+const Title = styled.div`
+  text-align: center;
+  grid-row: 3;
+  grid-column: 6 / span 2;
+  place-items: center;
+`
+
+const TaskList = styled.div`
+  background-color: #c4c4c4;
+  grid-column: 1 / 5
+  grid-row: 1 / 7
+  padding: 1.25em;
+`
+
+const TaskItem = styled.div``
+
+const CalendarView = styled.div`
+  grid-column: 5 / 13
+  grid-row: 1 / 7
+  border: solid red
+  padding: 1.25em;
+`
 
 class Main extends React.Component<{}, {}> {
   render() {
-    return <div>Main page goes here</div>
+    return (
+      <div>
+        <Wrapper>
+          <TaskList>
+            <TaskItem>Task list</TaskItem>
+          </TaskList>
+          <CalendarView>Calendar</CalendarView>
+        </Wrapper>
+      </div>
+    )
   }
 }
 
