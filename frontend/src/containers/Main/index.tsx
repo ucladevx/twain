@@ -12,10 +12,13 @@ const Title = styled.div`
 `
 
 const TaskList = styled.div`
+  display: grid
   background-color: #c4c4c4;
   grid-column: 1 / 5
   grid-row: 1 / 7
-  padding: 1.25em;
+  grid-gap: 20px;
+  grid-template-rows: repeat(12, 1fr);
+  grid-template-columns: repeat(4, 1fr)
 `
 
 const TaskItem = styled.div``
