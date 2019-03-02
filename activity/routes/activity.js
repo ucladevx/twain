@@ -1,6 +1,7 @@
 // defining the routing
 const express = require("express")
 const router = express.Router()
+const { Activity } = require('../db')
 
 // the ending function for processing POST requests
 router.post("/", (request, response) => {
