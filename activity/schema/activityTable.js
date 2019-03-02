@@ -1,5 +1,6 @@
 module.exports = (Sequelize, db) => {
-    const table = db.define("table", {
+
+    const activityTable = db.define("activityTable", {
         // id (row number)
         id: {
             type: Sequelize.INTEGER,
@@ -43,5 +44,5 @@ module.exports = (Sequelize, db) => {
         }
     })
 
-    return table;
+    return activityTable
 }
