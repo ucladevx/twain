@@ -1,17 +1,12 @@
 const express = require('express')
+const Sequelize = require('sequelize')
 const app = express()
 const bodyParser = require('body-parser')
 
 // middleware to parse JSON data
 app.use(bodyParser.json())
 
-// the service we'll use to make SQL queries
-const Sequelize = require('sequelize')
-
-// for including activity.js and its route
 const activity = require("./routes/activity")
-
-// including the schema for the activity table
 const activityTable = require("./schema/activityTable")
 
 // creating a new Sequelize instance with
