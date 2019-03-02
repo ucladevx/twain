@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from mongoengine import connect
 from .routes import routes_blueprint 
 
@@ -6,6 +7,7 @@ def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'randomkey'
     app.debug = True
+    CORS(app)
 
 
     """ MOVE DB CONNECTION TO DOCKER INSTANCE (TODO) """

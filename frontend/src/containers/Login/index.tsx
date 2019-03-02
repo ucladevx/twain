@@ -48,10 +48,11 @@ const Content = styled.div`
 interface State {
   email: string
   password: string
+  redirect: boolean
 }
 
 interface Props {
-  onAuthSuccess: (id_token: string, auth_code: string) => void
+  onAuthSuccess: (id_token: string, auth_code: string) => Promise<{}>
   onAuthFailure: (error: string) => void
 }
 
@@ -61,14 +62,14 @@ class Login extends React.Component<Props, State> {
     this.state = {
       email: '',
       password: '',
+      redirect: false,
     }
   }
 
   onSuccessHandler = (response: any): void => {
-    this.props.onAuthSuccess(
-      response.tokenObj.id_token,
-      response.tokenObj.access_token
-    )
+    this.props
+      .onAuthSuccess(response.tokenObj.id_token, response.tokenObj.access_token)
+      .then(() => this.setState({ redirect: true }))
   }
 
   onFailureHandler = (response: any): void => {
@@ -100,6 +101,7 @@ class Login extends React.Component<Props, State> {
   }
 
   render() {
+    if (this.state.redirect) return <Redirect to="/main" />
     return (
       <div>
         <Wrapper>
@@ -148,13 +150,9 @@ class Login extends React.Component<Props, State> {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    onAuthSuccess: (id_token: string, auth_code: string) => {
-      dispatch(onAuthSuccess(id_token, auth_code))
-      return <Redirect to="/main" />
-    },
-    onAuthFailure: (error: string) => {
-      dispatch(onAuthFailure(error))
-    },
+    onAuthSuccess: (id_token: string, auth_code: string) =>
+      dispatch(onAuthSuccess(id_token, auth_code)),
+    onAuthFailure: (error: string) => dispatch(onAuthFailure(error)),
   }
 }
 
