@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
-const db = require('./db')
+const { setup } = require('./db')
 
 // middleware to parse JSON data
 app.use(bodyParser.json())
@@ -10,7 +10,7 @@ const activity = require("./routes/activity")
 app.use("/activity", activity)
 
 // Initialize Database
-db()
+setup()
 
 // if we try to access 
 app.get('/', (req, res) => {
