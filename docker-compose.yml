@@ -7,12 +7,15 @@ services:
       POSTGRES_PASSWORD: example
     ports:
       - "5432:5432"
+    volumes:
+      - /var/lib/postgresql/data
   activity-server:
     build: ./activity
     depends_on: ["activity-db"]
     ports:
       - "8000:8000"
     volumes:
+      - /var/lib/postgresql/data
       - ./activity:/var/server:rw
       - /var/server/node_modules
   frontend:

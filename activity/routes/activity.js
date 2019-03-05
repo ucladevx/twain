@@ -1,7 +1,7 @@
 // defining the routing
 const express = require("express")
 const router = express.Router()
-const { Activity } = require('../db')
+const { Activity } = require("../db")
 
 // the ending function for processing POST requests
 router.post("/", (request, response) => {
@@ -12,7 +12,12 @@ router.post("/", (request, response) => {
         response.status(400).send("invalid request: expected fields not found\n")
     }
     else {
-        response.status(200).send("valid request. row added to SQL table\n")
+        response.status(200).send("valid request. attempting to add row to SQL table\n")
+        try {
+        }
+        catch (error) {
+            console.log("error: ", error)
+        }
     }
     // for debugging purposes
     response.json(req.body)
