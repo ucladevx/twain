@@ -14,7 +14,7 @@ router.post("/", (request, response) => {
     else {
         response.status(200).send("valid request. attempting to add row to SQL table\n")
         try {
-
+            // figure out how to use Sequelize to create a row in the SQL table
         }
         catch (error) {
             console.log("error: ", error)
