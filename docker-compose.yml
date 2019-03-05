@@ -8,14 +8,14 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - /var/lib/postgresql/data
+      - /var/lib/postgresql/data # target mountpoint
   activity-server:
     build: ./activity
     depends_on: ["activity-db"]
     ports:
       - "8000:8000"
     volumes:
-      - /var/lib/postgresql/data
+      - /var/lib/postgresql/data # target mountpoint
       - ./activity:/var/server:rw
       - /var/server/node_modules
   frontend:
