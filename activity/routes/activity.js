@@ -15,6 +15,9 @@ router.post("/", (request, response) => {
         response.status(200).send("valid request. attempting to add row to SQL table\n")
         try {
             // figure out how to use Sequelize to create a row in the SQL table
+            Activity.create({ uuid: "123abc", user_uuid: body.user_id, activity_type: activity_type }).then(
+                console.log("row successfully created.\n")
+            )
         }
         catch (error) {
             console.log("error: ", error)
