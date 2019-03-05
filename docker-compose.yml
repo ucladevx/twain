@@ -8,7 +8,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - /var/lib/postgresql/data # target mountpoint
+      - ./activity:/var/lib/postgresql/data:rw # mounting the entire activity/ folder to /var/server
   activity-server:
     build: ./activity
     depends_on: ["activity-db"]

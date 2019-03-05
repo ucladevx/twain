@@ -14,6 +14,7 @@ router.post("/", (request, response) => {
     else {
         response.status(200).send("valid request. attempting to add row to SQL table\n")
         try {
+
         }
         catch (error) {
             console.log("error: ", error)
