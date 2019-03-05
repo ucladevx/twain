@@ -15,7 +15,6 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - /var/lib/postgresql/data # target mountpoint
       - ./activity:/var/server:rw
       - /var/server/node_modules
   frontend:
