@@ -4,6 +4,7 @@ import Wrapper from '../../components/Wrapper'
 import Card from '../../components/Card'
 import { Header, Subheader, Paragraph } from '../../components/Typography'
 import Button from '../../components/Button'
+import TaskCard from '../../components/TaskCard'
 
 const Title = styled.div`
   text-align: center
@@ -43,11 +44,12 @@ class Main extends React.Component<{}, {}> {
         <Wrapper>
           <TaskList>
             <Header>Tasks</Header>
+            <TaskCard
+              name="Editable task name"
+              description="Some description of the task"
+            />
             <TaskItem>
               <Card>Task item1</Card>
-            </TaskItem>
-            <TaskItem>
-              <Card>Task item2</Card>
             </TaskItem>
           </TaskList>
           <CalendarView>
