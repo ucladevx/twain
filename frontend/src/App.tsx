@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Button from './components/Button'
 import Login from './containers/Login'
+import Main from './containers/Main'
 
 class Home extends React.Component {
   render() {
@@ -23,6 +24,7 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
+        <Route path="/main" component={Main} />
       </Switch>
     </Router>
   )
