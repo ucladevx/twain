@@ -1,14 +1,17 @@
 import * as React from 'react'
+import Button from '../../components/Button'
 
-import FakeButton from '../../components/FakeButton'
-
-const Home: React.SFC = () => {
-  return (
-    <div>
-      <div>Hello World</div>
-      <FakeButton text="hellloooooo" color="peru" />
-    </div>
-  )
+class Home extends React.Component {
+  render() {
+    return (
+      <div>
+        <div>Hello World</div>
+        <Button>Confirm</Button>
+        <Button primary>Primary</Button>
+        <Button fillWidth>Fill</Button>
+      </div>
+    )
+  }
 }
 
 export default Home
