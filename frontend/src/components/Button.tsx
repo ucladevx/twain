@@ -1,14 +1,12 @@
-import * as React from 'react'
 import styled from 'styled-components'
 
 interface StyledButtonProps {
   primary?: boolean
   danger?: boolean
   fillWidth?: boolean
-  children: React.ReactNode
 }
 
-const ButtonWrapper = styled.button`
+const Button = styled.button`
   background: ${(props: StyledButtonProps) =>
     props.primary ? 'grey' : 'white'};
   width: ${(props: StyledButtonProps) => (props.fillWidth ? '100%' : 'auto')};
@@ -27,7 +25,4 @@ const ButtonWrapper = styled.button`
   }
 `
 
-export default function Button(props: StyledButtonProps) {
-  const { children, ...styledProps } = props
-  return <ButtonWrapper {...styledProps}>{props.children}</ButtonWrapper>
-}
+export default Button
