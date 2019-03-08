@@ -14,7 +14,7 @@ routes_blueprint = Blueprint('routes', __name__)
 @routes_blueprint.route('/login', methods=['POST'])
 @cross_origin(supports_credentials=True)
 def login():
-    
+
     # Obtain id_token from request body
     data = json.loads(request.data)
     if data is None:
@@ -51,7 +51,7 @@ def login():
             user.access_token = access_token    # Refresh access_token
             user.save()
     
-        return user.toJSON()
+        return user.toJSON(), 200
 
     except ValueError as e:
         # Invalid token
@@ -87,7 +87,7 @@ def return_calendar_data(id, start_date, end_date):
         events = events_result.get('items', [])
 
         if not events:
-            raise ValueError("Could not get events from Calendar API", 500)
+            raise ValueError("Could not get events from Calendar API", status_code = 500)
         else:
             return jsonify(events), 200
 
