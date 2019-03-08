@@ -67,7 +67,7 @@ def return_calendar_data(id, start_date, end_date):
     # Extract Access Token from Authorization heeader
     user = User.objects(user_id = id).first()
     if not user:
-        raise Error("No user with the associated id_token", status_code = 400)
+        raise Error("No existing user with the associated user ID", status_code = 400)
     else:
         access_token = user.access_token
 
