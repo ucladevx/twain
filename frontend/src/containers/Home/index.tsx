@@ -33,26 +33,39 @@ const MailingListButton = styled(Button)`
   margin-left: 0.5em;
 `
 
-const Home = () => {
-  return (
-    <div>
-      <Navbar />
-      <Wrapper>
-        <Hero>
-          <JumboText>{`planning your day so you don't have to`}</JumboText>
-          <Paragraph
-            paragraph
-          >{`Everyone’s got a to-do list, schedular is the productivity app that turns your to-dos into actions. And it does so by learning from your lifestyle and planning your day to suit.`}</Paragraph>
-          <br />
-          <GoogleSignInButton />
-          <MailingListButton primary>Mailing List</MailingListButton>
-        </Hero>
-        <ScreenshotWrapper>
-          <Image src={ss} alt="Desktop" />
-        </ScreenshotWrapper>
-      </Wrapper>
-    </div>
-  )
+interface State {
+  showMailingList: boolean
 }
 
-export default Home
+export default class Home extends React.Component<null, State> {
+  constructor() {
+    super(null)
+    this.state = {
+      showMailingList: false,
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <Navbar />
+        <Wrapper>
+          <Hero>
+            <JumboText>{`planning your day so you don't have to`}</JumboText>
+            <Paragraph
+              paragraph
+            >{`Everyone’s got a to-do list, schedular is the productivity app that turns your to-dos into actions. And it does so by learning from your lifestyle and planning your day to suit.`}</Paragraph>
+            <br />
+            <GoogleSignInButton />
+            <a href="https://airtable.com/shrv7FFPvNlR1aU4U" target="_blank">
+              <MailingListButton primary>Mailing List</MailingListButton>
+            </a>
+          </Hero>
+          <ScreenshotWrapper>
+            <Image src={ss} alt="Desktop" />
+          </ScreenshotWrapper>
+        </Wrapper>
+      </div>
+    )
+  }
+}
