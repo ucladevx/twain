@@ -16,7 +16,7 @@ class User(UserMixin, Document):
             "last_name": self.last_name,
             "email": self.email,
             "id_token": self.id_token
-        }), 200
+        })
 
 class Error(Exception):
     status_code = 400
