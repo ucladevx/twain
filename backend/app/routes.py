@@ -1,6 +1,5 @@
 from flask import Blueprint, request, jsonify
 from flask_cors import cross_origin
-from flask_login import LoginManager, login_required, login_user, logout_user, current_user
 from googleapiclient.discovery import build
 from oauth2client.client import AccessTokenCredentials
 from google.oauth2 import id_token
