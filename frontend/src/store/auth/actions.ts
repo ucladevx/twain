@@ -7,14 +7,14 @@ import { ApplicationState } from '..'
 
 export const onAuthSuccess = (
   id_token: string,
-  auth_code: string
+  access_code: string
 ): ThunkAction<
   void,
   ApplicationState,
   null,
   Action<string>
 > => async dispatch => {
-  const data = { id_token, auth_code }
+  const data = { id_token, access_code }
   try {
     await fetch('http://localhost:5000/login', {
       method: 'POST',
