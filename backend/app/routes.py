@@ -4,10 +4,10 @@ from flask_login import LoginManager, login_required, login_user, logout_user, c
 from googleapiclient.discovery import build
 from oauth2client.client import AccessTokenCredentials
 from google.oauth2 import id_token
-from dateutil import parser
 from google.auth.transport import requests
 from .models import User, Error
-import os.path, json, datetime, time
+from .util import convertDateToRFC3339
+import os.path, json
 
 routes_blueprint = Blueprint('routes', __name__)
 
@@ -18,15 +18,15 @@ def login():
     # Obtain id_token from request body
     data = json.loads(request.data)
     if data is None:
-        raise Error('Error getting data', status_code = 500)
+        raise Error('Error getting data', status_code = 400)
 
     user_id_token = data.get('id_token')
     if user_id_token is None:
-        raise Error('Error getting id_token', status_code = 500)
+        raise Error('Error getting id_token', status_code = 400)
     
     access_token = data.get('access_token')
     if access_token is None:
-        raise Error('Error getting access_token', status_code = 500)
+        raise Error('Error getting access_token', status_code = 400)
 
     # Retrieve client ID from client_secret file
     if os.path.exists(os.getcwd() + '/app/client_secret.json'):
@@ -44,9 +44,10 @@ def login():
             raise ValueError('Invalid token')
 
         # ID token is valid. Query database for user email and create account if necessary
+        split_user_name = idinfo['name'].split(' ')
         user = User.objects(email=idinfo['email']).first()
         if user is None:
-            user = User(first_name = idinfo['name'].split(' ')[0], last_name = idinfo['name'].split(' ')[1], email = idinfo['email'], id_token = user_id_token, access_token = access_token).save()
+            user = User(first_name = split_user_name[0], last_name = split_user_name[1], email = idinfo['email'], access_token = access_token).save()
         else:
             user.access_token = access_token    # Refresh access_token
             user.save()
@@ -63,17 +64,15 @@ def login():
 def return_calendar_data(id, start_date, end_date):
 
     # Extract Access Token from Authorization heeader
-    user = User.objects(id_token = id).first()
+    user = User.objects(user_id = id).first()
     if not user:
         raise Error("No user with the associated id_token", status_code = 400)
     else:
         access_token = user.access_token
 
     # Extract date from query string params, and switch to UTC time, and then to RFC 3339 format for Google API
-    start_date = parser.parse(start_date)
-    end_date = parser.parse(end_date)
-    start_datetime = datetime.datetime.utcfromtimestamp(time.mktime(start_date.timetuple())).isoformat('T') + 'Z'
-    end_datetime = datetime.datetime.utcfromtimestamp(time.mktime(end_date.timetuple())).isoformat('T') + 'Z'
+    start_datetime = convertDateToRFC3339(start_date)
+    end_datetime = convertDateToRFC3339(end_date)
 
     # Build credentials object from access_token
     credentials = AccessTokenCredentials(access_token, 'my-user-agent/1.0')

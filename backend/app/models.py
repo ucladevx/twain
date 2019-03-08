@@ -1,10 +1,11 @@
 from flask import jsonify
 from flask_login import UserMixin 
 from mongoengine import Document, StringField
+import uuid
 
 class User(UserMixin, Document):
     meta = {'collection': 'db-users'}
-    id_token = StringField()
+    user_id = StringField(default=lambda: str(uuid.uuid4()), primary_key=True)
     email = StringField(max_length=30)
     first_name = StringField(max_length = 30)
     last_name = StringField(max_length = 50)
@@ -15,7 +16,7 @@ class User(UserMixin, Document):
             "first_name": self.first_name,
             "last_name": self.last_name,
             "email": self.email,
-            "id_token": self.id_token
+            "user_id": self.user_id
         })
 
 class Error(Exception):
