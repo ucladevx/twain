@@ -5,8 +5,7 @@ import { GoogleLogin } from 'react-google-login'
 import { connect } from 'react-redux'
 import Config from '../../config'
 import Wrapper from '../../components/Wrapper'
-import Card from '../../components/Card'
-import { Header, Subheader, Paragraph } from '../../components/Typography'
+import { Header } from '../../components/Typography'
 import { onAuthSuccess, onAuthFailure } from '../../store/auth/actions'
 import { Redirect } from 'react-router'
 
@@ -68,7 +67,7 @@ class Login extends React.Component<Props, State> {
 
   onSuccessHandler = (response: any): void => {
     this.props
-      .onAuthSuccess(response.tokenObj.id_token, response.tokenObj.access_token)
+      .onAuthSuccess(response.tokenId, response.accessToken)
       .then(() => this.setState({ redirect: true }))
   }
 
@@ -117,6 +116,7 @@ class Login extends React.Component<Props, State> {
                 </GoogleSignInButton>
               )}
               clientId={Config.CLIENT_ID}
+              scope="profile email https://www.googleapis.com/auth/calendar"
               onSuccess={this.onSuccessHandler}
               onFailure={this.onFailureHandler}
             />

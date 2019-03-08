@@ -1,7 +1,6 @@
-import * as React from 'react'
 import styled from 'styled-components'
 
-const TextWrapper = styled.div`
+const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(6, 1fr);
@@ -10,17 +9,5 @@ const TextWrapper = styled.div`
   font-style: normal;
   line-height: normal;
 `
-
-interface WrapperProps {
-  children: React.ReactNode
-}
-
-const Wrapper: React.SFC = (props: WrapperProps) => {
-  return (
-    <div>
-      <TextWrapper>{props.children}</TextWrapper>
-    </div>
-  )
-}
 
 export default Wrapper
