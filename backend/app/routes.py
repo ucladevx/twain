@@ -24,7 +24,7 @@ def login():
     if user_id_token is None:
         raise Error('Error getting id_token', status_code = 500)
     
-    access_token = data.get('auth_code')
+    access_token = data.get('access_token')
     if access_token is None:
         raise Error('Error getting access_token', status_code = 500)
 
