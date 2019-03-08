@@ -7,7 +7,7 @@ def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'randomkey'
     app.debug = True
-    CORS(app)
+    CORS(app, resources={r"/*": {"origins": "http://localhost:8080"}}, supports_credentials=True)
 
 
     """ MOVE DB CONNECTION TO DOCKER INSTANCE (TODO) """
