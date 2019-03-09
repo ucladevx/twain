@@ -51,7 +51,6 @@ def login():
         else:
             user.access_token = access_token    # Refresh access_token
             user.save()
-    
         return user.toJSON(), 200
 
     except ValueError as e:
