@@ -8,15 +8,20 @@ export const Header = styled.div`
 `
 
 export const Subheader = styled.div`
-  font-size: 1em;
+  font-size: 1.25em;
   font-weight: 700;
   font-family: Cabin;
   margin: 0.75em 0;
 `
 
-export const Paragraph = styled.div`
-  font-size: 1em;
+interface ParagraphProps {
+  paragraph?: boolean
+}
+
+export const Paragraph = styled.p`
+  font-size: 1.25em;
   font-weight: 400;
   font-family: Cabin;
   margin: 0.75em 0;
+  line-height: ${(props: ParagraphProps) => (props.paragraph ? '1.5' : '1')};
 `

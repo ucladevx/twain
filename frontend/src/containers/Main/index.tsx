@@ -12,12 +12,12 @@ const TaskItem = styled.div`
 `
 
 const CalendarView = styled.div`
-  display: grid
-  grid-column: 5 / 13
-  grid-row: 1 / 7
-  border: solid red
+  display: grid;
+  grid-column: 5 / 13;
+  grid-row: 1 / 7;
+  border: solid red;
   grid-template-rows: repeat(12, 1fr);
-  grid-template-columns: repeat(10, 1fr)
+  grid-template-columns: repeat(10, 1fr);
 `
 
 class Main extends React.Component<{}, {}> {
