@@ -67,7 +67,7 @@ class Login extends React.Component<Props, State> {
 
   onSuccessHandler = (response: any): void => {
     this.props
-      .onAuthSuccess(response.tokenObj.id_token, response.tokenObj.access_token)
+      .onAuthSuccess(response.tokenId, response.accessToken)
       .then(() => this.setState({ redirect: true }))
   }
 
@@ -116,6 +116,7 @@ class Login extends React.Component<Props, State> {
                 </GoogleSignInButton>
               )}
               clientId={Config.CLIENT_ID}
+              scope="profile email https://www.googleapis.com/auth/calendar"
               onSuccess={this.onSuccessHandler}
               onFailure={this.onFailureHandler}
             />
