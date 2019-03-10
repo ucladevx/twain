@@ -1,5 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
+// @ts-ignore
 import ss from './assets/Desktop.png'
 
 import Wrapper from '../../components/Wrapper'
@@ -9,7 +10,7 @@ import Button from '../../components/Button'
 import GoogleSignInButton from '../GoogleSignInButton'
 
 const Hero = styled.div`
-  grid-column: 3 / span 4;
+  grid-column: 2 / span 4;
   grid-row: 3 / span 2;
 `
 

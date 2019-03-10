@@ -4,6 +4,9 @@
     "transform-class-properties",
     "@babel/plugin-proposal-class-properties",
     "@babel/proposal-object-rest-spread",
-    "babel-plugin-styled-components"
+    [
+      "styled-components",
+      { "ssr": true, "displayName": true, "preprocess": false }
+    ]
   ]
 }
