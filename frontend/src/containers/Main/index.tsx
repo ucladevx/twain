@@ -3,23 +3,7 @@ import styled from 'styled-components'
 import Wrapper from '../../components/Wrapper'
 import Card from '../../components/Card'
 import { Header, Subheader, Paragraph } from '../../components/Typography'
-import Button from '../../components/Button'
-
-const Title = styled.div`
-  text-align: center
-  grid-row: 3
-  grid-column: 6 / span 2
-  place-items: center
-`
-
-const TaskList = styled.div`
-  display: grid;
-  background-color: #c4c4c4;
-  grid-column: 1 / 5;
-  grid-row: 1 / 7;
-  grid-template-rows: repeat(12, 1fr);
-  grid-template-columns: repeat(4, 1fr);
-`
+import TaskList from '../../components/TaskLisk'
 
 const TaskItem = styled.div`
   padding: 0px 20px 20px 20px
