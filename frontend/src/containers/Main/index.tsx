@@ -4,6 +4,7 @@ import Wrapper from '../../components/Wrapper'
 import Card from '../../components/Card'
 import { Header, Subheader, Paragraph } from '../../components/Typography'
 import TaskList from '../../components/TaskLisk'
+import CalendarDay from '../../components/CalendarDay'
 
 const TaskItem = styled.div`
   padding: 0px 20px 20px 20px
@@ -35,7 +36,7 @@ class Main extends React.Component<{}, {}> {
             </TaskItem>
           </TaskList>
           <CalendarView>
-            <Header>Calendar</Header>
+            <CalendarDay date="23 November" />
           </CalendarView>
         </Wrapper>
       </div>
