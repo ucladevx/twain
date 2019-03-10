@@ -44,10 +44,7 @@ class Main extends React.Component<{}, {}> {
         <Wrapper>
           <TaskList>
             <Header>Tasks</Header>
-            <TaskCard
-              name="Editable task name"
-              description="Some description of the task"
-            />
+            <TaskCard />
             <TaskItem>
               <Card>Task item1</Card>
             </TaskItem>
