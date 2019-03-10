@@ -28,3 +28,13 @@ services:
       - "5000:5000"
     volumes: 
       - ./backend:/var/backend
+  mongo-db:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
