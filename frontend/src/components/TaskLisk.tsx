@@ -1,21 +1,13 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-const TaskListWrapper = styled.div`
-  padding: 1.25em;
-  border-radius: 5px;
-  border: solid #c4c4c4 1px;
+const TaskList = styled.div`
+  display: grid;
+  background-color: #c4c4c4;
+  grid-column: 1 / 5;
+  grid-row: 1 / 7;
+  grid-template-rows: repeat(12, 1fr);
+  grid-template-columns: repeat(4, 1fr);
 `
-interface TaskListProps {
-  children: React.ReactNode
-}
-
-const TaskList: React.SFC = (props: TaskListProps) => {
-  return (
-    <div>
-      <TaskListWrapper>{props.children}</TaskListWrapper>
-    </div>
-  )
-}
 
 export default TaskList
