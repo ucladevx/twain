@@ -4,7 +4,7 @@ from mongoengine import Document, StringField
 import uuid
 
 class User(UserMixin, Document):
-    meta = {'collection': 'db-users'}
+    meta = {'collection': 'users'}
     user_id = StringField(default=lambda: str(uuid.uuid4()), primary_key=True)
     email = StringField(max_length=30)
     first_name = StringField(max_length = 30)

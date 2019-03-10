@@ -1,4 +1,3 @@
-import os
 from flask import Flask
 from flask_cors import CORS
 from mongoengine import connect
@@ -9,10 +8,9 @@ def create_app():
     app.config['SECRET_KEY'] = 'randomkey'
     app.debug = True
     CORS(app, resources={r"/*": {"origins": "http://localhost:8080"}}, supports_credentials=True)
-
-    
-    """ MOVE DB CONNECTION TO DOCKER INSTANCE (TODO) """
     app.register_blueprint(routes_blueprint)
-    connect(db='taskScheduler', host='mongo')
+
+    connect(db='taskScheduler', host='mongo-db')
+
     return app
 
