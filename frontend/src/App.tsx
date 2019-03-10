@@ -1,29 +1,28 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { createGlobalStyle } from 'styled-components'
 
-import Button from './components/Button'
+import Home from './containers/Home'
 import Login from './containers/Login'
+import Main from './containers/Main'
 
-class Home extends React.Component {
-  render() {
-    return (
-      <div>
-        <div>Hello World</div>
-        <Button>Confirm</Button>
-        <Button primary>Primary</Button>
-        <Button fillWidth>Fill</Button>
-      </div>
-    )
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
   }
-}
+`
 
 export default function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/login" component={Login} />
-      </Switch>
-    </Router>
+    <div>
+      <GlobalStyle />
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/main" component={Main} />
+        </Switch>
+      </Router>
+    </div>
   )
 }

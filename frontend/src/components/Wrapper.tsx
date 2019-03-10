@@ -1,27 +1,13 @@
-import * as React from 'react'
 import styled from 'styled-components'
 
-const TextWrapper = styled.div`
+const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(6, 1fr);
-  grid-gap: 20px;
-  margin: 20px;
+  height:100%
   font-family: Cabin;
   font-style: normal;
   line-height: normal;
 `
-
-interface WrapperProps {
-  children: React.ReactNode
-}
-
-const Wrapper: React.SFC = (props: WrapperProps) => {
-  return (
-    <div>
-      <TextWrapper>{props.children}</TextWrapper>
-    </div>
-  )
-}
 
 export default Wrapper

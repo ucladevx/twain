@@ -1,21 +1,32 @@
 from flask import Blueprint, request, jsonify
-from flask_login import LoginManager, login_required, login_user, logout_user, current_user
+from flask_cors import cross_origin
 from googleapiclient.discovery import build
-from oauth2client import client
+from oauth2client.client import AccessTokenCredentials
 from google.oauth2 import id_token
+from dateutil import parser
 from google.auth.transport import requests
-from .models import User, Response 
-import os.path
-import json 
+from .models import User, Error
+from .util import convertDateToRFC3339
+import os.path, json
 
 routes_blueprint = Blueprint('routes', __name__)
 
 @routes_blueprint.route('/login', methods=['POST'])
+@cross_origin(supports_credentials=True)
 def login():
+
     # Obtain id_token from request body
-    data = request.data
-    data = json.loads(data)
-    token = data['id_token']
+    data = json.loads(request.data)
+    if data is None:
+        raise Error('Error getting data', status_code = 400)
+
+    user_id_token = data.get('id_token')
+    if user_id_token is None:
+        raise Error('Error getting id_token', status_code = 400)
+    
+    access_token = data.get('access_token')
+    if access_token is None:
+        raise Error('Error getting access_token', status_code = 400)
 
     # Retrieve client ID from client_secret file
     if os.path.exists(os.getcwd() + '/app/client_secret.json'):
@@ -26,34 +37,68 @@ def login():
     
     try:
         # Verify token
-        idinfo = id_token.verify_oauth2_token(token, requests.Request(), client_id)
+        idinfo = id_token.verify_oauth2_token(user_id_token, requests.Request(), client_id)
 
         #If token issuer not from Google, return error
         if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
-            raise ValueError('Wrong issuer')
+            raise ValueError('Invalid token')
 
         # ID token is valid. Query database for user email and create account if necessary
+        split_user_name = idinfo['name'].split(' ')
         user = User.objects(email=idinfo['email']).first()
         if user is None:
-            user = User(first_name = idinfo['name'].split(' ')[0], last_name = idinfo['name'].split(' ')[1], email = idinfo['email']).save()
+            user = User(first_name = split_user_name[0], last_name = split_user_name[1], email = idinfo['email'], access_token = access_token).save()
+        else:
+            user.access_token = access_token    # Refresh access_token
+            user.save()
     
-        return user.toJSON()
+        return user.toJSON(), 200
 
-    except ValueError:
+    except ValueError as e:
         # Invalid token
-        return Response(301, "Error: Token is invalid").toJSON()
+        raise Error(e, status_code = 400)
 
-@routes_blueprint.route('/calendar', methods=['GET'])
-def return_calendar_data():
-        
-    # Get path to client secret file
-    if os.path.exists(os.getcwd() + '/app/client_secret.json'):
-        client_secret_path = os.getcwd() + '/app/client_secret.json'
 
-    """ EXCHANGE ACCESS_CODE FOR CREDENTIALS (TODO) """
+@routes_blueprint.route('/calendar/id=<id>&start=<start_date>&end=<end_date>', methods=['GET'])
+@cross_origin(supports_credentials=True)
+def return_calendar_data(id, start_date, end_date):
 
-    service = build('calendar', 'v3', credentials=credentials)
+    # Extract Access Token from Authorization heeader
+    user = User.objects(user_id = id).first()
+    if not user:
+        raise Error("No existing user with the associated user ID", status_code = 400)
+    else:
+        access_token = user.access_token
 
-    events = service.events().list(calendarId='primary', timeMin=now, maxResults=10)
+    # Extract date from query string params, and switch to UTC time, and then to RFC 3339 format for Google API
+    start_datetime = convertDateToRFC3339(start_date)
+    end_datetime = convertDateToRFC3339(end_date)
 
-    return jsonify(events)
+    # Build credentials object from access_token
+    credentials = AccessTokenCredentials(access_token, 'my-user-agent/1.0')
+
+    # Try to get events from Calendar API between start_date and end_date
+    try: 
+        service = build('calendar', 'v3', credentials=credentials)
+
+        events_result = service.events().list(calendarId='primary', timeMin=start_datetime, timeMax=end_datetime,
+                                    singleEvents=True, orderBy='startTime').execute()
+        events = events_result.get('items', [])
+
+        if not events:
+            raise ValueError("Could not get events from Calendar API", status_code = 500)
+        else:
+            return jsonify(events), 200
+
+    except ValueError as e:
+        raise Error(e, status_code = 500)
+
+    except Exception as e:
+        raise Error("Could not connect to calendar API, perhaps due to invalid credentials/access_token --> Returned Error: {}".format(e), status_code = 400)
+
+
+@routes_blueprint.errorhandler(Error)
+def handle_error(e):
+    response = jsonify(e.to_dict())
+    response.status_code = e.status_code
+    return response
