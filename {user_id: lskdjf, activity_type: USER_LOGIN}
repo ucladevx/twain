@@ -1,9 +1,0 @@
-HTTP/1.1 404 Not Found
-X-Powered-By: Express
-Content-Security-Policy: default-src 'self'
-X-Content-Type-Options: nosniff
-Content-Type: text/html; charset=utf-8
-Content-Length: 140
-Date: Sun, 10 Mar 2019 21:27:06 GMT
-Connection: keep-alive
-
