@@ -7,6 +7,8 @@ services:
       POSTGRES_PASSWORD: example
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data:rw # mounting the entire activity/ folder to /var/server
   activity-server:
     build: ./activity
     depends_on: ["activity-db"]
@@ -38,3 +40,4 @@ services:
 
 volumes:
   mongo-data:
+  postgres_data:

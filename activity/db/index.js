@@ -14,7 +14,7 @@ const db = new Sequelize('postgres', 'postgres', 'example', {
     },
 })
 
-const Activity = require('./schema/activityTable')(Sequelize, db)
+const Activity = require('./schema/activityTableSchema')(Sequelize, db)
 
 // creating a new Sequelize instance with
 // database: postgres
