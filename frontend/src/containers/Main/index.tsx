@@ -22,12 +22,6 @@ const TaskList = styled.div`
   grid-template-columns: repeat(4, 1fr);
 `
 
-const TaskItem = styled.div`
-  padding: 0px 20px 20px 20px
-  align-content: space-evenly;
-  grid-column: 1 / span 4;
-`
-
 const CalendarView = styled.div`
   display: grid
   grid-column: 5 / 13
@@ -44,13 +38,8 @@ class Main extends React.Component<{}, {}> {
         <Wrapper>
           <TaskList>
             <Header>Tasks</Header>
-            <TaskCard
-              name="Editable task name"
-              description="Some description of the task"
-            />
-            <TaskItem>
-              <Card>Task item1</Card>
-            </TaskItem>
+            <TaskCard />
+            <TaskCard />
           </TaskList>
           <CalendarView>
             <Header>Calendar</Header>
