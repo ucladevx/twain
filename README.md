@@ -5,6 +5,7 @@
 2. `make run` will run *all* of the docker-containers, which include
 * activity service
 * actvity db (postgres)
+* user db (mongo)
 * frontend (webpack)
 * backend (flask)
 
@@ -16,3 +17,4 @@
 * `make log-backend`: attach to the logs of the flask server
 * `make pip-install package=<package>`: installs the given python package and saves it to requirements.txt
 * `make pip-uninstall package=<package>` uninstalls the given python package
+* `make mongo-cli`: opens an instance of the mongo CLI in the mongo container
