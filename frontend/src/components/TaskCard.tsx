@@ -5,10 +5,11 @@ import { Header, Subheader, Paragraph } from './Typography'
 import Button from './Button'
 
 const ExpandedTaskCardWrapper = styled.div`
+    margin-top: 1em
     padding: 0px 1.25em 1.25em 1.25em
     align-content: space-evenly;
     grid-column: 1 / span 4;
-    grid-row: span 4
+    grid-row: span 6
 `
 
 const ButtonWrapper = styled.div`

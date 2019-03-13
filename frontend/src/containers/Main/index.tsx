@@ -23,15 +23,30 @@ const CalendarView = styled.div`
   grid-template-columns: repeat(10, 1fr);
 `
 
-class Main extends React.Component<{}, {}> {
+class Main extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props)
+    this.state = {
+      numTasks: 0,
+    }
+  }
+
+  addTask = () => {
+    this.setState({
+      numTasks: this.state.numTasks + 1,
+    })
+  }
+
   render() {
+    const tasks = []
+    for (let i = 0; i < this.state.numTasks; i += 1) tasks[i] = <TaskCard />
     return (
       <div>
         <Wrapper>
           <TaskList>
             <Header>Tasks</Header>
-            <TaskCard />
-            <TaskCard />
+            {tasks}
+            <Button onClick={this.addTask}>Add Task</Button>
           </TaskList>
           <CalendarView>
             <Header>Calendar</Header>
