@@ -1,17 +1,10 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import Wrapper from '../../components/Wrapper'
-import Card from '../../components/Card'
 import { Header, Subheader, Paragraph } from '../../components/Typography'
 import TaskList from '../../components/TaskLisk'
 import CalendarDay from '../../components/CalendarDay'
 import TimeLabel from '../../components/TimeLabel'
-
-const TaskItem = styled.div`
-  padding: 0px 20px 20px 20px
-  align-content: space-evenly;
-  grid-column: 1 / span 4;
-`
 
 const CalendarView = styled.div`
   display: grid;
@@ -27,15 +20,7 @@ class Main extends React.Component<{}, {}> {
     return (
       <div>
         <Wrapper>
-          <TaskList>
-            <Header>Tasks</Header>
-            <TaskItem>
-              <Card>Task item1</Card>
-            </TaskItem>
-            <TaskItem>
-              <Card>Task item2</Card>
-            </TaskItem>
-          </TaskList>
+          <TaskList />
           <CalendarView>
             <TimeLabel />
             <CalendarDay date="March 1" />
