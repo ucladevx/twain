@@ -5,6 +5,7 @@ import Card from '../../components/Card'
 import { Header, Subheader, Paragraph } from '../../components/Typography'
 import TaskList from '../../components/TaskLisk'
 import CalendarDay from '../../components/CalendarDay'
+import TimeLabel from '../../components/TimeLabel'
 
 const TaskItem = styled.div`
   padding: 0px 20px 20px 20px
@@ -36,7 +37,10 @@ class Main extends React.Component<{}, {}> {
             </TaskItem>
           </TaskList>
           <CalendarView>
-            <CalendarDay date="23 November" />
+            <TimeLabel />
+            <CalendarDay date="March 1" />
+            <CalendarDay date="March 2" />
+            <CalendarDay date="March 3" />
           </CalendarView>
         </Wrapper>
       </div>

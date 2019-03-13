@@ -5,8 +5,7 @@ import { Header, Subheader, Paragraph } from './Typography'
 
 const CalendarDayWrapper = styled.div`
   display: grid;
-  background-color: #c4c4c4;
-  grid-column: 2 / span 3;
+  grid-column: span 3;
   grid-row: 1 / span 12;
   grid-template-rows: repeat(12, 1fr);
   grid-template-columns: 1fr;
