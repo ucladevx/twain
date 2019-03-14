@@ -4,7 +4,8 @@
   "rules": {
     "semi": ["error", "never"],
     "class-methods-use-this": 0,
-    "linebreak-style": 0
+    "linebreak-style": 0,
+    "react/jsx-no-target-blank": [0, { "enforceDynamicLinks": "never" }]
   },
   "extends": [
     "airbnb-base",
