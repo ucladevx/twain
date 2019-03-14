@@ -5,10 +5,10 @@ import { Header, Subheader, Paragraph } from './Typography'
 import Button from './Button'
 
 const ExpandedTaskCardWrapper = styled.div`
-    padding: 0px 1.25em 1.25em 1.25em
-    align-content: space-evenly;
-    grid-column: 1 / span 4;
-    grid-row: span 4
+  margin-bottom: 1.25em;
+  align-content: space-evenly;
+  grid-column: 1 / span 4;
+  grid-row: span 4;
 `
 
 const ButtonWrapper = styled.div`
@@ -30,7 +30,7 @@ const Input = styled.input`
 `
 
 const CompactTaskCardWrapper = styled.div`
-  padding: 0px 20px 20px 20px
+  margin-bottom: 1.25em;
   align-content: space-evenly;
   grid-column: 1 / span 4;
 `
@@ -62,7 +62,6 @@ export interface TaskCardProps {
   isRecurrent: boolean
   flags: string
   description: string
-  uneditedCard: any
 }
 
 export default class TaskCard extends React.Component<
@@ -102,6 +101,7 @@ export default class TaskCard extends React.Component<
   }
 
   toggleTaskCard = () => {
+    console.log('clicked')
     this.setState({
       expanded: !this.state.expanded,
     })

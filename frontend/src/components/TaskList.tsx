@@ -1,13 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { Header } from './Typography'
-import Card from './Card'
-
-const TaskItem = styled.div`
-  padding: 0px 20px 20px 20px
-  align-content: space-evenly;
-  grid-column: 1 / span 4;
-`
+import TaskCard from './TaskCard'
 
 const TaskListWrapper = styled.div`
   display: grid;
@@ -16,6 +10,7 @@ const TaskListWrapper = styled.div`
   grid-row: 1 / 7;
   grid-template-rows: repeat(12, 1fr);
   grid-template-columns: repeat(4, 1fr);
+  padding: 0 1.25em;
 `
 
 export default class TaskList extends React.Component {
@@ -23,12 +18,14 @@ export default class TaskList extends React.Component {
     return (
       <TaskListWrapper>
         <Header>Tasks</Header>
-        <TaskItem>
-          <Card>Task item1</Card>
-        </TaskItem>
-        <TaskItem>
-          <Card>Task item2</Card>
-        </TaskItem>
+        <TaskCard
+          name="Go grocery shopping"
+          dueDate="March 14"
+          isActive={true}
+          isRecurrent={false}
+          flags="Personal"
+          description=""
+        />
       </TaskListWrapper>
     )
   }
