@@ -42,7 +42,7 @@ const Navbar = () => {
     <Nav>
       <NavInner>
         <LogoWrapper>
-          <LogoText>schedular.</LogoText>
+          <LogoText>twain.</LogoText>
         </LogoWrapper>
         <MenuWrapper />
       </NavInner>

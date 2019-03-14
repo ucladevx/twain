@@ -43,7 +43,7 @@ const Home = () => {
           <JumboText>{`planning your day so you don't have to`}</JumboText>
           <Paragraph
             paragraph
-          >{`Everyone’s got a to-do list, schedular is the productivity app that turns your to-dos into actions. And it does so by learning from your lifestyle and planning your day to suit.`}</Paragraph>
+          >{`Everyone’s got a to-do list, twain is the productivity app that turns your to-dos into actions. And it does so by learning from your lifestyle and planning your day to suit.`}</Paragraph>
           <br />
           <GoogleSignInButton />
           <a href="https://airtable.com/shrv7FFPvNlR1aU4U" target="_blank">
