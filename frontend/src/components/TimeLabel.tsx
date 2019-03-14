@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styled, { withTheme } from 'styled-components'
+import styled from 'styled-components'
 
 const TimeLabelWrapper = styled.div`
   display: grid;
@@ -27,7 +27,7 @@ export default class TimeLabel extends React.Component {
         <Label> 9 am </Label>
         <Label> 10 am </Label>
         <Label> 11 am </Label>
-        <Label> 12 am </Label>
+        <Label> 12 pm </Label>
         <Label> 1 pm </Label>
         <Label> 2 pm </Label>
         <Label> 3 pm </Label>

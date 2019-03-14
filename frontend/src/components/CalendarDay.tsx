@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import TimeColumn from './TimeColumn'
-import { Header, Subheader, Paragraph } from './Typography'
+import { Header } from './Typography'
 
 const CalendarDayWrapper = styled.div`
   display: grid;
