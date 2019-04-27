@@ -4,7 +4,6 @@ const router = express.Router()
 const { Activity, db } = require("../db")
 const config = require("../Config")
 
-// if you perform a POST request at this endpoint, we'll create a row
 router.post("/", (req, res) => {
     const { body } = req
 

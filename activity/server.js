@@ -15,6 +15,8 @@ setup()
 
 // if we try to access 
 app.get('/', (req, res) => {
+  console.log("successful GET at /activity")
+  /*
   sequelize
     .authenticate()
     .then(() => {
@@ -23,7 +25,7 @@ app.get('/', (req, res) => {
     .catch(err => {
       console.error("Error: ", err)
       res.send("failed to authenticate")
-    })
+    })*/
 })
 
 // telling the app that localhost:8080/activity
