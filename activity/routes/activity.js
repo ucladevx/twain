@@ -4,6 +4,7 @@ const router = express.Router()
 const { Activity } = require("../db")
 const config = require("../Config")
 
+// the code for making a POST request to localhost:8000/activity
 router.post("/", (req, res) => {
     const { body } = req
 
