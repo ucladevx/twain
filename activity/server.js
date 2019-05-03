@@ -9,6 +9,9 @@ app.use(bodyParser.json())
 const activity = require("./routes/activity")
 app.use("/activity", activity)
 
+const api = require("./api")
+app.use("/api", api)
+
 // Initialize Database
 setup()
 
