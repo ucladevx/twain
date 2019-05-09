@@ -10,4 +10,4 @@
 7. Now you can go to the calendar.google.com page and hit the Twain icon to toggle the sidebar :-)
 
 
-    Whenever there are changes, run the command `run npm build` again, and just click the refresh button to update
+    Whenever there are changes, run the command `run npm build` again, and just click the refresh button in the Chrome extensions page to update
