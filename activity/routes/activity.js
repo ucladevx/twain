@@ -42,9 +42,13 @@ router.post("/", (req, res) => {
 
 // if you perform a GET request, we'll read from the table instead
 // uuid corresponds to the user's user_uuid for which we want data
-router.get("/:uuid", (req, res) => {
+router.get("/:requested_user_uuid", (req, res) => {
     // at first, just try reading every single element 
-    Activity.findAll()
+    Activity.findAll({
+        where: {
+            user_uuid: requested_user_uuid
+        }
+    })
 })
 
 // ensuring that this code can exported to ../server.js
