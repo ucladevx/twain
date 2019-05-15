@@ -4,6 +4,7 @@ const router = express.Router()
 const { Activity } = require("../db")
 const config = require("../Config")
 
+// if you perform a POST request at this endpoint, we'll create a row
 router.post("/", (req, res) => {
     const { body } = req
 
@@ -37,7 +38,14 @@ router.post("/", (req, res) => {
         }
         return res.status(500).json(response)
     })
-});
+})
+
+// if you perform a GET request, we'll read from the table instead
+// uuid corresponds to the user's user_uuid for which we want data
+router.get("/:uuid", (req, res) => {
+    // at first, just try reading every single element 
+    Activity.findAll()
+})
 
 // ensuring that this code can exported to ../server.js
 module.exports = router
