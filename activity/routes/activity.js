@@ -42,12 +42,23 @@ router.post("/", (req, res) => {
 
 // if you perform a GET request, we'll read from the table instead
 // uuid corresponds to the user's user_uuid for which we want data
-router.get("/:requested_user_uuid", (req, res) => {
+router.get("/:requested_user", (req, res) => {
     // at first, just try reading every single element 
     Activity.findAll({
+        // looking specifically for the user_uuid that matches :requested_user
         where: {
-            user_uuid: requested_user_uuid
+            user_uuid: req.params.requested_user
         }
+    }).then(activity => {
+        // send back the requested row
+        return res.status(200).json(activity)
+    }).catch(error => {
+        // send the error back as a JSON with field "message"
+        const response = {
+            message: error,
+            text: "error received"
+        }
+        return res.status(500).json(response)
     })
 })
 
