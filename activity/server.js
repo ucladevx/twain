@@ -6,8 +6,13 @@ const { setup } = require('./db')
 // middleware to parse JSON data
 app.use(bodyParser.json())
 
+// setting up /activity route
 const activity = require("./routes/activity")
 app.use("/activity", activity)
+
+// setting up /dump route
+const dump = require("./routes/dump")
+app.use("/dump", dump)
 
 // Initialize Database
 setup()
