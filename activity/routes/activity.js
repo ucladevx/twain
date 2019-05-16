@@ -49,9 +49,10 @@ router.get("/:requested_user", (req, res) => {
         where: {
             user_uuid: req.params.requested_user
         }
-    }).then(activity => {
-        // send back the requested row
-        return res.status(200).json(activity)
+    }).then(userActivity => {
+        // if findAll() is successful, then the return object is called
+        // userActivity and JSONified using .json()
+        return res.status(200).json(userActivity)
     }).catch(error => {
         // send the error back as a JSON with field "message"
         const response = {
