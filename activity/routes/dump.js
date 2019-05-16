@@ -17,3 +17,5 @@ router.get("/", (req, res) => {
             return res.status(500).json(response)
         })
 })
+
+module.exports = router
