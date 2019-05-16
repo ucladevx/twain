@@ -43,14 +43,14 @@ router.post("/", (req, res) => {
 
 // if you perform a GET request, we'll read from the table instead
 // uuid corresponds to the user's user_uuid for which we want data
-router.get("/:requested_user", (req, res) => {
+router.get("/:user", (req, res) => {
     // first, let's perform a .count() operation on the table
     // if that returns an error, we know the entry doesn't exist in
     // the table
     Activity
         .count({
             where: {
-                user_uuid: req.params.requested_user
+                user_uuid: req.params.user
             }
         })
         // if .count() is successful, we query for the requested user_uuid
@@ -58,7 +58,7 @@ router.get("/:requested_user", (req, res) => {
             Activity
                 .findAll({
                     where: {
-                        user_uuid: req.params.requested_user
+                        user_uuid: req.params.user
                     }
                 })
                 // if .findAll() is successful, return the result of the database
@@ -81,10 +81,41 @@ router.get("/:requested_user", (req, res) => {
         })
         .catch(error => {
             const response = {
-                message: "invalid request: user_uuid '" + req.params.requested_user + "' not found"
+                message: "invalid request: user_uuid '" + req.params.user + "' not found"
             }
             return res.status(400).json(response)
         })
+
+    // ram's way
+    /*
+    Activity
+        .findAll({
+            // using .findAll() to return all entries in the table where
+            // user_uuid is the one requsted
+            where: {
+                user_uuid: req.params.user
+            }
+        })
+        .then(result => {
+            // if nothing is returned, the query must have been unsuccessful
+            if (result == null) {
+                const response = {
+                    message: "invalid query: user_uuid '" + req.params.user + "' not found"
+                }
+                return res.status(400).json(response)
+            }
+            // else, we're good to go!
+            else {
+                return res.status(200).json(result)
+            }
+        })
+        .catch(error => {
+            const response = {
+                message: error
+            }
+            return res.status(500).json(response)
+        })
+        */
 })
 
 // ensuring that this code can exported to ../server.js
