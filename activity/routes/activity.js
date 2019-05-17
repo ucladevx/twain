@@ -1,7 +1,7 @@
 // defining the routing
 const express = require("express")
 const router = express.Router()
-const { Activity } = require("../db")
+const { Activity, db } = require("../db")
 const config = require("../Config")
 
 // if you perform a POST request at this endpoint, we'll create a row
@@ -44,50 +44,6 @@ router.post("/", (req, res) => {
 // if you perform a GET request, we'll read from the table instead
 // uuid corresponds to the user's user_uuid for which we want data
 router.get("/:user", (req, res) => {
-    // first, let's perform a .count() operation on the table
-    // if that returns an error, we know the entry doesn't exist in
-    // the table
-    Activity
-        .count({
-            where: {
-                user_uuid: req.params.user
-            }
-        })
-        // if .count() is successful, we query for the requested user_uuid
-        .then(n_occurrences => {
-            Activity
-                .findAll({
-                    where: {
-                        user_uuid: req.params.user
-                    }
-                })
-                // if .findAll() is successful, return the result of the database
-                // query in the returned JSON object
-                .then(result => {
-                    const response = {
-                        count: n_occurrences,
-                        entries: result
-                    }
-                    return res.status(200).json(response)
-                })
-                // if .findAll() is unsuccessful, return a status code 500
-                // INTERNAL SERVER ERROR along with Sequelize's error message
-                .catch(error => {
-                    const response = {
-                        message: error
-                    }
-                    return res.status(500).json(response)
-                })
-        })
-        .catch(error => {
-            const response = {
-                message: "invalid request: user_uuid '" + req.params.user + "' not found"
-            }
-            return res.status(400).json(response)
-        })
-
-    // ram's way
-    /*
     Activity
         .findAll({
             // using .findAll() to return all entries in the table where
@@ -97,25 +53,17 @@ router.get("/:user", (req, res) => {
             }
         })
         .then(result => {
-            // if nothing is returned, the query must have been unsuccessful
-            if (result == null) {
-                const response = {
-                    message: "invalid query: user_uuid '" + req.params.user + "' not found"
-                }
-                return res.status(400).json(response)
-            }
-            // else, we're good to go!
-            else {
-                return res.status(200).json(result)
-            }
-        })
-        .catch(error => {
             const response = {
-                message: error
+                entries: result
             }
-            return res.status(500).json(response)
+            return res.status(200).json(response)
         })
-        */
+        .catch(() => {
+            const response = {
+                message: "Invalid user_uuid"
+            }
+            return res.status(400).json(response)
+        })
 })
 
 // ensuring that this code can exported to ../server.js
