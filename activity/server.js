@@ -10,10 +10,6 @@ app.use(bodyParser.json())
 const activity = require("./routes/activity")
 app.use("/activity", activity)
 
-// setting up /dump route
-const dump = require("./routes/dump")
-app.use("/dump", dump)
-
 // Initialize Database
 setup()
 

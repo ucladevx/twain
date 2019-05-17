@@ -58,6 +58,8 @@ router.get("/:user", (req, res) => {
             }
             return res.status(200).json(response)
         })
+        // if there was a problem with querying the database, it's probably
+        // because the user tried entering something that wasn't in UUID format
         .catch(() => {
             const response = {
                 message: "Invalid user_uuid"
