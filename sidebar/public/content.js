@@ -20,7 +20,7 @@ function toggleSidebar() {
     var element = document.getElementsByClassName("tEhMVd")[0]; //this is the whole calendar view element
     var sidebar = document.createElement("div");
     sidebar.id = "mySidebar";
-    sidebar.innerHTML = `<iframe id="twainFetcher" style="height:100%"></iframe>`;
+    sidebar.innerHTML = `<iframe width="100%" height="100%" frameborder="0" id="twainFetcher"></iframe>`;
     sidebar.style.cssText =
       "\
 	  display: flex;\
@@ -30,7 +30,6 @@ function toggleSidebar() {
     element.appendChild(sidebar); //append a sidebar element to the calendar.
     const iframe = document.getElementById("twainFetcher");
     iframe.src = chrome.extension.getURL("index.html");
-    iframe.frameBorder = 0;
     sidebarOpen = true;
   }
 }

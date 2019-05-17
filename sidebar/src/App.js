@@ -12,8 +12,7 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   return (
-    <div className="App">
-      <GlobalStyle />
+    <div id="App">
       <Main />
     </div>
   );
