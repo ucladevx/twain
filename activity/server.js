@@ -6,8 +6,12 @@ const { setup } = require('./db')
 // middleware to parse JSON data
 app.use(bodyParser.json())
 
+// setting up the app to use right routes
 const activity = require("./routes/activity")
 app.use("/activity", activity)
+
+const milestones = require("./routes/milestones")
+app.use("/milestones", milestones)
 
 // Initialize Database
 setup()
