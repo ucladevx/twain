@@ -35,7 +35,8 @@ module.exports = (Sequelize, db) => {
         },
         {
             freezeTableName: true
-        })
+        }
+    )
 
     return activityTable
 }
