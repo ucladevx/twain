@@ -12,5 +12,9 @@ module.exports = {
         "CANCEL_TASK", "EDIT_CALENDAR_EVENT",
         "DELETE_CALENDAR_EVENT", "VIEW_COMPLETED_EVENTS",
         "SHARE_APP_REFERRAL", "SHARE_FEEDBACK"
+    ],
+
+    milestoneTypes: [
+        "firstTask"
     ]
 }
