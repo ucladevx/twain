@@ -53,6 +53,9 @@ router.get("/:user", (req, res) => {
             }
         })
         .then(result => {
+            // if there's no problems, return all the entries in the database
+            // matching the requested user_uuid (could be empty if the user
+            // hasn't performed any activity yet)
             const response = {
                 entries: result
             }
