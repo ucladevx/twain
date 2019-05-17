@@ -14,7 +14,9 @@ const db = new Sequelize('postgres', 'postgres', 'example', {
     },
 })
 
+// exporting the schemas of the different tables
 const Activity = require('./schema/activityTableSchema')(Sequelize, db)
+const Milestones = require("./schema/milestoneTableSchema")(Sequelize, db)
 
 // creating a new Sequelize instance with
 // database: postgres
@@ -22,9 +24,17 @@ const Activity = require('./schema/activityTableSchema')(Sequelize, db)
 // password: example
 const setup = () => {
     // Create Tables
-    Activity.sync().catch(error => {
-        console.error('error: ', error)
-    })
+    Activity
+        .sync()
+        .catch(error => {
+            console.error('error: ', error)
+        })
+
+    Milestones
+        .sync()
+        .catch(error => {
+            console.error("error: ", error)
+        })
 }
 
-module.exports = { Activity, setup }
+module.exports = { Activity, Milestones, setup }
