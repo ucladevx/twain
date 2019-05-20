@@ -86,7 +86,7 @@ def get_free_intervals(id):
             raise ValueError("Could not get events from Calendar API", status_code = 500)
         events = events_result.get('items', [])
 
-        return jsonify(formulate_open_timeslots(events, today))
+        return jsonify([timeslot.__dict__ for timeslot in formulate_open_timeslots(events, today)]), 200
 
 
     except ValueError as e:
