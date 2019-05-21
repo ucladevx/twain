@@ -1,9 +1,10 @@
 // defining the routing
 const express = require("express")
 const router = express.Router()
-const { Activity } = require("../db")
+const { Activity, db } = require("../db")
 const config = require("../Config")
 
+// if you perform a POST request at this endpoint, we'll create a row
 router.post("/", (req, res) => {
     const { body } = req
 
@@ -23,21 +24,52 @@ router.post("/", (req, res) => {
     }
 
     // code for valid request
-    Activity.create({ user_uuid: body.user_uuid, activity_type: body.activity_type }).then(activity => {
-        // creating our response object if row is successfully created
-        const response = {
-            id: activity.get("id"),
-            activity_type: activity.get("activity_type"),
-            createdAt: activity.get("createdAt")
-        }
-        return res.status(200).json(response)
-    }).catch(error => {
-        const response = {
-            message: error
-        }
-        return res.status(500).json(response)
-    })
-});
+    Activity
+        .create({ user_uuid: body.user_uuid, activity_type: body.activity_type }).then(activity => {
+            // creating our response object if row is successfully created
+            const response = {
+                id: activity.get("id"),
+                activity_type: activity.get("activity_type"),
+                createdAt: activity.get("createdAt")
+            }
+            return res.status(200).json(response)
+        }).catch(error => {
+            const response = {
+                message: error
+            }
+            return res.status(500).json(response)
+        })
+})
+
+// if you perform a GET request, we'll read from the table instead
+// uuid corresponds to the user's user_uuid for which we want data
+router.get("/:user", (req, res) => {
+    Activity
+        .findAll({
+            // using .findAll() to return all entries in the table where
+            // user_uuid is the one requsted
+            where: {
+                user_uuid: req.params.user
+            }
+        })
+        .then(result => {
+            // if there's no problems, return all the entries in the database
+            // matching the requested user_uuid (could be empty if the user
+            // hasn't performed any activity yet)
+            const response = {
+                entries: result
+            }
+            return res.status(200).json(response)
+        })
+        // if there was a problem with querying the database, it's probably
+        // because the user tried entering something that wasn't in UUID format
+        .catch(() => {
+            const response = {
+                message: "Invalid user_uuid"
+            }
+            return res.status(400).json(response)
+        })
+})
 
 // ensuring that this code can exported to ../server.js
 module.exports = router
