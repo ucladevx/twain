@@ -25,7 +25,7 @@ function toggleSidebar() {
       "\
 	  display: flex;\
 	  width:300px;\
-	  background-color: gray;\
+	  background-color: #c4c4c4;\
 	  ";
     element.appendChild(sidebar); //append a sidebar element to the calendar.
     const iframe = document.getElementById("twainFetcher");

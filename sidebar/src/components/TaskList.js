@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { Header } from "./Typography";
 import TaskCard from "./TaskCard";
+import Button from "./Button";
 
 const TaskListWrapper = styled.div`
   display: grid;
@@ -26,6 +27,7 @@ export default class TaskList extends React.Component {
           flags="Personal"
           description=""
         />
+        <Button onClick={this.props.changePage} primary={true} />
       </TaskListWrapper>
     );
   }
