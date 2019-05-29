@@ -14,10 +14,38 @@ const GlobalStyle = createGlobalStyle`
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { page: <Main /> };
+    this.changePage = this.changePage.bind(this);
+    this.state = { page: "Main" };
   }
+
+  //switches from Main to NewTask and vice versa
+  changePage() {
+    if (this.state.page == "Main")
+      this.setState({
+        page: "NewTask"
+      });
+    else
+      this.setState({
+        page: "Main"
+      });
+  }
+
   render() {
-    return <div id="App">{this.state.page}</div>;
+    let page = null;
+    if (this.state.page == "Main") {
+      page = (
+        <div id="App">
+          <Main changePage={this.changePage} />
+        </div>
+      );
+    } else {
+      page = (
+        <div id="App">
+          <NewTask changePage={this.changePage} />
+        </div>
+      );
+    }
+    return page;
   }
 }
 
