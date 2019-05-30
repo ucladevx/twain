@@ -1,14 +1,24 @@
 import * as React from "react";
 import styled from "styled-components";
-import Card from "./Card";
 import { Header, Subheader, Paragraph } from "./Typography";
 import Button from "./Button";
 
-const ExpandedTaskCardWrapper = styled.div`
+const Card = styled.div`
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const CompactTaskCardWrapper = styled.div`
   margin-bottom: 1.25em;
   align-content: space-evenly;
   grid-column: 1 / span 4;
-  grid-row: span 4;
 `;
 
 const ButtonWrapper = styled.div`
@@ -23,16 +33,22 @@ const Input = styled.input`
   font-family: inherit;
   background-color: inherit;
   font-size: inherit;
-  width: 100%;
+  width: 90%;
   padding: 0.5em;
   margin-bottom: 1.5em;
   margin-top: -0.5em;
 `;
 
-const CompactTaskCardWrapper = styled.div`
-  margin-bottom: 1.25em;
+const EditTaskWrapper = styled.div`
+  font-family: Cabin;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+
   align-content: space-evenly;
   grid-column: 1 / span 4;
+  grid-row: 2 / span 4;
 `;
 
 export default class TaskCard extends React.Component {
@@ -41,24 +57,16 @@ export default class TaskCard extends React.Component {
     this.state = {
       expanded: false,
       editedTask: {
-        name: "Editable task name",
-        dueDate: "",
-        isActive: false,
-        isRecurrent: false,
-        flags: "",
-        description: "Some description of the task"
-      },
-      uneditedTask: {
-        name: "Editable task name",
-        dueDate: "",
-        isActive: false,
-        isRecurrent: false,
-        flags: "",
-        description: "Some description of the task"
+        name: props.name,
+        duration: props.duration,
+        dueDate: props.dueDate,
+        isActive: props.isActive,
+        isRecurrent: props.isRecurrent
       }
     };
   }
 
+  /** Value Change Functions */
   onNameChange = e => {
     this.setState({
       editedTask: {
@@ -68,6 +76,25 @@ export default class TaskCard extends React.Component {
     });
   };
 
+  onDurationChange = e => {
+    this.setState({
+      editedTask: {
+        ...this.state.editedTask,
+        duration: e.target.value
+      }
+    });
+  };
+
+  onDueDateChange = e => {
+    this.setState({
+      editedTask: {
+        ...this.state.editedTask,
+        dueDate: e.target.value
+      }
+    });
+  };
+
+  /** Toggle Functions */
   toggleTaskCard = () => {
     console.log("clicked");
     this.setState({
@@ -77,63 +104,62 @@ export default class TaskCard extends React.Component {
   };
 
   cancelTaskCard = () => {
-    this.toggleTaskCard();
     this.setState({
-      editedTask: this.state.uneditedTask
+      editedTask: {
+        name: this.props.name,
+        description: this.props.description
+      }
     });
+    this.toggleTaskCard();
   };
 
   updateTaskCard = () => {
     this.setState({
-      uneditedTask: this.state.editedTask
+      editedTask: this.state.editedTask
     });
     this.toggleTaskCard();
 
     /* connect with Redux in the future */
   };
 
-  onDescriptionChange = e => {
-    this.setState({
-      editedTask: {
-        ...this.state.editedTask,
-        description: e.target.value
-      }
-    });
-  };
-
   render() {
     if (this.state.expanded) {
       return (
-        <ExpandedTaskCardWrapper>
-          <Card>
-            <Paragraph>
-              <Input
-                value={this.state.editedTask.name}
-                onChange={this.onNameChange}
-              />
-            </Paragraph>
-            <Subheader>Description</Subheader>
-            <Paragraph>
-              <Input
-                value={this.state.editedTask.description}
-                onChange={this.onDescriptionChange}
-              />
-            </Paragraph>
-            <Subheader>Label</Subheader>
-            <Button fillWidth primary /> <br />
-            <ButtonWrapper>
-              <Button onClick={this.cancelTaskCard}>Cancel</Button>
-              <Button onClick={this.updateTaskCard} primary>
-                Submit
-              </Button>
-            </ButtonWrapper>
-          </Card>
-        </ExpandedTaskCardWrapper>
+        <EditTaskWrapper>
+          <Button className="button icon-left" onClick={this.toggleTaskCard}>
+            Back
+          </Button>{" "}
+          <Header>
+            <Input
+              value={this.state.editedTask.name}
+              onChange={this.onNameChange}
+            />
+          </Header>
+          <Subheader>Duration</Subheader>
+          <Paragraph>
+            <Input
+              value={this.state.editedTask.duration}
+              onChange={this.onDurationChange}
+            />
+          </Paragraph>
+          <Subheader>Due Date</Subheader>
+          <Paragraph>
+            <Input
+              value={this.state.editedTask.dueDate}
+              onChange={this.onDueDateChange}
+            />
+          </Paragraph>
+          <ButtonWrapper>
+            <Button onClick={this.updateTaskCard} primary>
+              Save
+            </Button>
+          </ButtonWrapper>
+        </EditTaskWrapper>
       );
     }
     return (
       <CompactTaskCardWrapper onClick={this.toggleTaskCard}>
-        <Card>{this.state.editedTask.name}</Card>
+        <Card>{this.props.name}</Card>
       </CompactTaskCardWrapper>
     );
   }
