@@ -27,7 +27,7 @@ export default class TaskList extends React.Component {
           flags="Personal"
           description=""
         />
-        <Button onClick={this.props.changePage} primary={true} />
+        <Button onClick={this.props.changePage}>New task</Button>
       </TaskListWrapper>
     );
   }

@@ -5,6 +5,7 @@ export const Header = styled.div`
   font-weight: 700;
   font-family: Cabin;
   margin: 0.8125em 0;
+  grid-column: 1 / span 4;
 `;
 
 export const Subheader = styled.div`

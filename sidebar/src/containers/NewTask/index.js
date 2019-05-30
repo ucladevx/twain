@@ -19,8 +19,8 @@ class NewTask extends React.Component {
       <div className="NewTask">
         <Wrapper>
           <NewTaskWrapper>
-            <Header className="Header">New Tasks</Header>
-            <Button onClick={this.props.changePage} />
+            <Header className="Header">New Task</Header>
+            <Button onClick={this.props.changePage}>Cancel</Button>
           </NewTaskWrapper>
         </Wrapper>
       </div>
