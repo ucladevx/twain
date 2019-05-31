@@ -13,6 +13,7 @@ export const Subheader = styled.div`
   font-weight: 700;
   font-family: Cabin;
   margin: 0.75em 0;
+  grid-column: 1 / span 4;
 `;
 
 export const Paragraph = styled.p`

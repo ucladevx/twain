@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import Wrapper from "../../components/Wrapper";
 import Button from "../../components/Button";
-import { Header } from "../../components/Typography";
+import { Header, Subheader } from "../../components/Typography";
 
 const NewTaskWrapper = styled.div`
   display: grid;
@@ -13,6 +13,18 @@ const NewTaskWrapper = styled.div`
   padding: 0 1.25em;
 `;
 
+const Input = styled.input`
+  border: none;
+  display: block;
+  font-family: inherit;
+  background-color: inherit;
+  font-size: inherit;
+  grid-column: 1 / span 4;
+  padding: 0.5em;
+  margin-bottom: 1.5em;
+  margin-top: -0.5em;
+`;
+
 class NewTask extends React.Component {
   render() {
     return (
@@ -20,6 +32,12 @@ class NewTask extends React.Component {
         <Wrapper>
           <NewTaskWrapper>
             <Header className="Header">New Task</Header>
+            <Subheader>Title</Subheader>
+            <Input value="Add Title" />
+            <Subheader>Duration</Subheader>
+            <Input value="Add Duration" />
+            <Subheader>Due Date</Subheader>
+            <Input value="Add Due Date" />
             <Button onClick={this.props.changePage}>Cancel</Button>
           </NewTaskWrapper>
         </Wrapper>
