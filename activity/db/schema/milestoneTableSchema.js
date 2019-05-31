@@ -18,7 +18,10 @@ module.exports = (Sequelize, db) => {
             milestone_type: {
                 type: Sequelize.ENUM(...config.milestoneTypes)
             },
-            // the activity_type we're checking for
+            milestone_format: {
+                type: Sequelize.ENUM(...config.milestoneFormats)
+            },
+            // the activity_type we're checking for (also must come from Config.js)
             activity_type: {
                 type: Sequelize.ENUM(...config.activityTypes)
             },

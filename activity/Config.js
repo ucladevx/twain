@@ -15,6 +15,10 @@ module.exports = {
     ],
 
     milestoneTypes: [
-        "firstTask"
+        "CREATE_FIRST_TASK", "FIVE_TASKS_ONE_DAY", "FINISH_FIRST_TASK"
+    ],
+
+    milestoneFormats: [
+        "PURELY_TIMED", "TIMED_FREQUENCY", "UNTIMED_FREQUENCY"
     ]
 }
