@@ -2,7 +2,9 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { Header, Subheader, Paragraph } from './Typography'
 import Button from './Button'
+import BackButton from './BackButton'
 import { tasks } from '../fakeTasks.js'
+import { ViewWrapper, ViewHeader, ViewBody, ViewFooter } from './View'
 
 const Input = styled.input`
   border: none;
@@ -18,30 +20,6 @@ const Input = styled.input`
   &:focus {
     outline: none;
   }
-`
-
-const EditTaskWrapper = styled.div`
-  position: relative;
-  height: 100%;
-`
-
-const ViewHeader = styled.div`
-  position: absolute;
-  height: 3.125em;
-  top: 0;
-`
-
-const ViewBody = styled.div`
-  position: absolute;
-  top: 3.125em;
-  bottom: 3.125em;
-  padding: 1.5em 0;
-`
-
-const ViewFooter = styled.div`
-  position: absolute;
-  height: 3.125em;
-  bottom: 0;
 `
 
 export default class EditTask extends React.Component {
@@ -60,7 +38,7 @@ export default class EditTask extends React.Component {
 
   componentDidMount() {
     const matches = tasks.filter(t => t.id === this.props.tid)
-    if (matches.length != 0) {
+    if (matches.length !== 0) {
       const { name, dueDate, duration, isActive, isRecurrent } = matches[0]
 
       this.setState({
@@ -111,9 +89,9 @@ export default class EditTask extends React.Component {
 
   render() {
     return (
-      <EditTaskWrapper>
+      <ViewWrapper>
         <ViewHeader>
-          <Button onClick={this.props.cancelEdit}>Back</Button>
+          <BackButton onClick={this.props.cancelEdit}>Back</BackButton>
         </ViewHeader>
         <ViewBody>
           <Header>
@@ -145,7 +123,7 @@ export default class EditTask extends React.Component {
             Save
           </Button>
         </ViewFooter>
-      </EditTaskWrapper>
+      </ViewWrapper>
     )
   }
 }

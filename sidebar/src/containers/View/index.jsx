@@ -10,7 +10,7 @@ const views = {
   Confirmation: 'Confirmation',
 }
 
-const ViewWrapper = styled.div`
+const Wrapper = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -69,7 +69,7 @@ class View extends React.Component {
   }
 
   render() {
-    return <ViewWrapper>{this.renderView()}</ViewWrapper>
+    return <Wrapper>{this.renderView()}</Wrapper>
   }
 }
 

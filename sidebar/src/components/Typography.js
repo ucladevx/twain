@@ -1,10 +1,9 @@
 import styled from 'styled-components'
 
-export const Header = styled.div`
+export const Header = styled.h1`
   font-size: 1.5em;
   font-weight: 700;
-  line-height: 19px;
-  margin: 0.8125em 0;
+  margin: 0;
 `
 
 export const Subheader = styled.div`

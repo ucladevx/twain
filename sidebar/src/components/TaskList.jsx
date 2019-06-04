@@ -1,11 +1,25 @@
 import * as React from 'react'
-// import styled from 'styled-components'
-import { Header } from './Typography'
+import styled from 'styled-components'
+import { Header, Paragraph } from './Typography'
 import Task from './Task'
-// import TaskCard from './TaskCard'
 import Button from './Button'
+import ForwardButton from './ForwardButton'
+import { ViewWrapper, ViewHeader, ViewBody, ViewFooter } from './View'
 
 import { tasks } from '../fakeTasks.js'
+
+const ButtonWrapper = styled.div`
+  display: block;
+  border-top: solid 0.5px #000;
+  padding: 0.5em 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  color: #000;
+  opacity: 0.25;
+`
 
 export default class TaskList extends React.Component {
   constructor(props) {
@@ -15,10 +29,22 @@ export default class TaskList extends React.Component {
     }
   }
 
+  renderNewTaskButton = () => {
+    return (
+      <ButtonWrapper onClick={this.props.newTask}>
+        <Paragraph>&#65291; New Task</Paragraph>
+      </ButtonWrapper>
+    )
+  }
+
   componentDidMount() {
     this.setState({
       tasks: tasks,
     })
+  }
+
+  collapseSidebar = () => {
+    window.alert('collapse')
   }
 
   renderTasks = () => {
@@ -29,11 +55,18 @@ export default class TaskList extends React.Component {
 
   render() {
     return (
-      <div>
-        <Header className="Header">Tasks</Header>
-        {this.renderTasks()}
-        <Button onClick={this.props.newTask}>New Task</Button>
-      </div>
+      <ViewWrapper>
+        <ViewHeader>
+          <Header>Tasks</Header>
+          <ForwardButton onClick={this.collapseSidebar} />
+        </ViewHeader>
+        <ViewBody>
+          {this.renderTasks()} {this.renderNewTaskButton()}
+        </ViewBody>
+        <ViewFooter>
+          <Button primary>Schedule</Button>
+        </ViewFooter>
+      </ViewWrapper>
     )
   }
 }
