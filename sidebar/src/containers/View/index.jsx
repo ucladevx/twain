@@ -2,6 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import TaskList from '../../components/TaskList'
 import EditTask from '../../components/EditTask'
+import { storeTask, getTasks } from '../../lib/storage'
 
 const views = {
   List: 'List',
