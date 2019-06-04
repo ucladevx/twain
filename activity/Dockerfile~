@@ -5,4 +5,4 @@ COPY package.json /var/server
 WORKDIR /var/server
 RUN npm install
 
-ENTRYPOINT ["npm", "start"]
+ENTRYPOINT ["npm", "run", "dev"]
