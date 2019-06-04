@@ -19,6 +19,6 @@ module.exports = {
     ],
 
     milestoneFormats: [
-        "PURELY_TIMED", "TIMED_FREQUENCY", "UNTIMED_FREQUENCY"
+        "TIMED", "UNTIMED"
     ]
 }
