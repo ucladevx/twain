@@ -58,7 +58,13 @@ class View extends React.Component {
   renderView() {
     switch (this.state.view) {
       case views.List:
-        return <TaskList editTask={this.editTask} newTask={this.newTask} />
+        return (
+          <TaskList
+            getTasks={getTasks}
+            editTask={this.editTask}
+            newTask={this.newTask}
+          />
+        )
       case views.NewTask:
       case views.EditTask:
         return (
