@@ -30,6 +30,6 @@ app.get('/', (req, res) => {
 // will use the code in the activity.js file
 
 // serving at port 8000
-const server = app.listen(process.env.PORT, () => {
+const server = app.listen(8000, () => {
   console.log('listening on port 8000')
 })

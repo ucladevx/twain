@@ -1,18 +1,7 @@
+const Config = require('../Config')
 const Sequelize = require('sequelize')
 
-const db = new Sequelize('postgres', 'postgres', 'example', {
-    host: 'activity-db',
-    port: 5432, // postgres's default port
-    dialect: 'postgres',
-    operatorsAliases: false,
-
-    pool: {
-        max: 5,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
-    },
-})
+const db = new Sequelize(Config.DB.DATABASE_URL)
 
 const Activity = require('./schema/activityTableSchema')(Sequelize, db)
 
