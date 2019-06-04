@@ -39,5 +39,23 @@ router.post("/", (req, res) => {
     })
 });
 
+router.get("/:user_uuid", (req, res) => {
+    Activity
+        .findAll({
+            where: {
+                user_uuid: req.params.user_uuid
+            }
+        })
+        .then(userActivity => {
+            return res.status(200).json(userActivity)
+        })
+        .catch(error => {
+            const response = {
+                message: error
+            }
+            return res.status(400).json(response)
+        })
+})
+
 // ensuring that this code can exported to ../server.js
 module.exports = router
