@@ -6,30 +6,33 @@ function handleRequest(
   sender,
   sendResponse
 ) {
-  if (request.callFunction == "toggleSidebar") toggleSidebar();
+  if (request.callFunction == 'toggleSidebar') toggleSidebar()
 }
-chrome.extension.onRequest.addListener(handleRequest);
+chrome.extension.onRequest.addListener(handleRequest)
 
-var sidebarOpen = false;
+var sidebarOpen = false
 function toggleSidebar() {
   if (sidebarOpen) {
-    var el = document.getElementById("mySidebar");
-    el.parentNode.removeChild(el);
-    sidebarOpen = false;
+    var el = document.getElementById('mySidebar')
+    el.parentNode.removeChild(el)
+    sidebarOpen = false
   } else {
-    var element = document.getElementsByClassName("tEhMVd")[0]; //this is the whole calendar view element
-    var sidebar = document.createElement("div");
-    sidebar.id = "mySidebar";
-    sidebar.innerHTML = `<iframe width="100%" height="100%" frameborder="0" id="twainFetcher"></iframe>`;
+    var element = document.getElementsByClassName('tEhMVd')[0] //this is the whole calendar view element
+    var sidebar = document.createElement('div')
+    sidebar.id = 'mySidebar'
+    sidebar.innerHTML = `<iframe width="100%" height="100%" frameborder="0" id="twainFetcher"></iframe>`
     sidebar.style.cssText =
-      "\
+      '\
 	  display: flex;\
-	  width:300px;\
-	  background-color: #e8e8e8;\
-	  ";
-    element.appendChild(sidebar); //append a sidebar element to the calendar.
-    const iframe = document.getElementById("twainFetcher");
-    iframe.src = chrome.extension.getURL("index.html");
-    sidebarOpen = true;
+    width:300px;\
+    height:100vh;\
+    position:relative;\
+    box-shadow: 0px 0px 5px 0px #aaaaaa;\
+    z-index:5002;\
+	  '
+    element.appendChild(sidebar) //append a sidebar element to the calendar.
+    const iframe = document.getElementById('twainFetcher')
+    iframe.src = chrome.extension.getURL('index.html')
+    sidebarOpen = true
   }
 }

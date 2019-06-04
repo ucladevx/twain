@@ -1,25 +1,22 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Header = styled.div`
   font-size: 1.5em;
   font-weight: 700;
-  font-family: Cabin;
   line-height: 19px;
   margin: 0.8125em 0;
-`;
+`
 
 export const Subheader = styled.div`
   font-size: 1.25em;
-  font-weight: 700;
-  font-family: Cabin;
+  font-weight: 300;
   margin: 0.75em 0;
-  padding: 0.5em;
-`;
+  padding: 0.5em 0;
+`
 
 export const Paragraph = styled.p`
   font-size: 1.25em;
   font-weight: 400;
-  font-family: Cabin;
   margin: 0.75em 0;
-  line-height: ${props => (props.paragraph ? "1.5" : "1")};
-`;
+  line-height: ${props => (props.paragraph ? '1.5' : '1')};
+`

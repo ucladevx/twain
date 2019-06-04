@@ -1,9 +1,9 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 const Button = styled.button`
-  background: ${props => (props.primary ? "black" : "white")};
-  width: ${props => (props.fillWidth ? "100%" : "auto")};
-  color: ${props => (props.primary ? "white" : "black")};
+  background: ${props => (props.primary ? 'black' : 'white')};
+  width: ${props => (props.fillWidth ? '100%' : 'auto')};
+  color: ${props => (props.primary ? 'white' : 'black')};
   border-radius: 5px;
   border: solid #c4c4c4 1px;
   height: 3.125em;
@@ -17,6 +17,6 @@ const Button = styled.button`
   &:hover {
     cursor: pointer;
   }
-`;
+`
 
-export default Button;
+export default Button
