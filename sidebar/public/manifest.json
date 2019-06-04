@@ -12,11 +12,14 @@
   },
   "content_scripts": [
     {
-      "js": [ "content.js"],
-      "matches": [ "*://calendar.google.com/*"]
+      "js": ["content.js"],
+      "matches": ["*://calendar.google.com/*"]
     }
   ],
   "permissions": [
-    "tabs"
-  ]
+    "tabs",
+    "storage"
+  ],
+  "web_accessible_resources": ["*.html"],
+  "content_security_policy": "script-src 'self' https://apis.google.com/js/platform.js 'sha256-5As4+3YpY62+l38PsxCEkjB1R4YtyktBtRScTJ3fyLU='; object-src 'self'"
 }
