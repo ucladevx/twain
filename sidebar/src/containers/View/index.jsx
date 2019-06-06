@@ -61,6 +61,7 @@ class View extends React.Component {
         return (
           <TaskList
             getTasks={getTasks}
+            storeTask={storeTask} //get rid of this
             editTask={this.editTask}
             newTask={this.newTask}
           />

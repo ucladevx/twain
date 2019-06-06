@@ -5,7 +5,7 @@ import Task from './Task'
 // import TaskCard from './TaskCard'
 import Button from './Button'
 
-import { tasks } from '../fakeTasks.js'
+// import { tasks } from '../fakeTasks.js'
 
 export default class TaskList extends React.Component {
   constructor(props) {
@@ -15,10 +15,24 @@ export default class TaskList extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.setState({
-      tasks: tasks,
-    })
+  async componentDidMount() {
+    ///test code, delete later
+    let object = {
+      name: 'new',
+      dueDate: '',
+      duration: '',
+      isActive: false,
+      isRecurrent: false,
+    }
+    this.props.storeTask(object)
+    //////////////
+    const tasks = await this.props.getTasks()
+    // console.log(this.props.getTasks)
+    if (this.props.getTasks() === undefined) return
+    else
+      this.setState({
+        tasks: tasks,
+      })
   }
 
   renderTasks = () => {
