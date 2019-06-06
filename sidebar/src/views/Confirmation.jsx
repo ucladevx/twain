@@ -1,8 +1,8 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { Header, Subheader, Paragraph } from '../components/Typography'
-import Task from '../components/Task'
 import Button from '../components/Button'
+import CheckBoxTask from '../components/CheckBoxTask'
 import BackButton from '../components/BackButton'
 import {
   ViewWrapper,
@@ -10,7 +10,6 @@ import {
   ViewBody,
   ViewFooter,
 } from '../components/View'
-
 import { tasks } from '../fakeTasks.js'
 
 const ButtonWrapper = styled.div`
@@ -54,7 +53,7 @@ export default class TaskList extends React.Component {
 
   renderTasks = () => {
     return this.state.tasks.map(t => {
-      return <Task {...t} editTask={this.props.editTask} key={t.id} />
+      return <CheckBoxTask {...t} editTask={this.props.editTask} key={t.id} />
     })
   }
 
