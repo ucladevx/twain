@@ -2,6 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { Header, Paragraph } from './Typography'
 import Task from './Task'
+import CheckBoxTask from './CheckBoxTask'
 import Button from './Button'
 import ForwardButton from './ForwardButton'
 import { ViewWrapper, ViewHeader, ViewBody, ViewFooter } from './View'
@@ -49,7 +50,7 @@ export default class TaskList extends React.Component {
 
   renderTasks = () => {
     return this.state.tasks.map(t => {
-      return <Task {...t} editTask={this.props.editTask} key={t.id} />
+      return <CheckBoxTask {...t} editTask={this.props.editTask} key={t.id} />
     })
   }
 
