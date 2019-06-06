@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { colors } from '../constants'
 
 export const Header = styled.h1`
   font-size: 1.5em;
@@ -8,9 +9,10 @@ export const Header = styled.h1`
 
 export const Subheader = styled.div`
   font-size: 1.25em;
-  font-weight: 300;
+  font-weight: 400;
   margin: 0.75em 0;
   padding: 0.5em 0;
+  color: ${colors.grey};
 `
 
 export const Paragraph = styled.p`

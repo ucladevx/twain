@@ -25,7 +25,6 @@ export const ViewBody = styled.div`
   right: 0;
   top: 3.125em;
   bottom: 3.125em;
-  padding: 1.5em 0;
 `
 
 export const ViewFooter = styled.div`
@@ -34,4 +33,7 @@ export const ViewFooter = styled.div`
   right: 0;
   height: 3.125em;
   bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 `
