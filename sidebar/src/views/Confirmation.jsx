@@ -4,13 +4,14 @@ import { Header, Subheader, Paragraph } from '../components/Typography'
 import Button from '../components/Button'
 import CheckBoxTask from '../components/CheckBoxTask'
 import BackButton from '../components/BackButton'
+import { schedule } from '../fakeSchedule.js'
+
 import {
   ViewWrapper,
   ViewHeader,
   ViewBody,
   ViewFooter,
 } from '../components/View'
-import { tasks } from '../fakeTasks.js'
 
 const ButtonWrapper = styled.div`
   display: block;
@@ -29,7 +30,7 @@ export default class TaskList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      tasks: [],
+      schedule: [],
     }
   }
 
@@ -43,7 +44,7 @@ export default class TaskList extends React.Component {
 
   componentDidMount() {
     this.setState({
-      tasks: tasks,
+      schedule: schedule,
     })
   }
 
@@ -51,9 +52,24 @@ export default class TaskList extends React.Component {
     window.alert('collapse')
   }
 
+  // renderTasks = () => {
+  //   return this.state.tasks.map(t => {
+  //     return <CheckBoxTask {...t} editTask={this.props.editTask} key={t.id} />
+  //   })
+  // }
+
   renderTasks = () => {
-    return this.state.tasks.map(t => {
-      return <CheckBoxTask {...t} editTask={this.props.editTask} key={t.id} />
+    return this.state.schedule.map(s => {
+      return (
+        <div>
+          <Subheader>{s.time}</Subheader>
+          {s.tasks.map(t => {
+            return (
+              <CheckBoxTask {...t} editTask={this.props.editTask} key={t.id} />
+            )
+          })}
+        </div>
+      )
     })
   }
 
@@ -65,7 +81,6 @@ export default class TaskList extends React.Component {
         </ViewHeader>
         <ViewBody>
           <Header>Today</Header>
-          <Subheader>12:00-1:00</Subheader>
           {this.renderTasks()}
         </ViewBody>
         <ViewFooter>
