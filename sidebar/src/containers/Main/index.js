@@ -3,11 +3,14 @@ import styled from "styled-components";
 import Wrapper from "../../components/Wrapper";
 import TaskList from "../../components/TaskList";
 import getTodaysFreeIntervals from "../../lib/storage/free_intervals";
+import { schedule } from '../../lib/csp/schedule';
 //import { schedule } from '../../lib/csp/schedule'
 
 class Main extends React.Component {
-  componentDidMount() {
-    console.log(getTodaysFreeIntervals());
+  async componentDidMount() {
+    var free_intervals = await getTodaysFreeIntervals();
+    console.log(free_intervals);
+    console.log(schedule(free_intervals))
     // console.log(free_intervals);
     // }
     // catch (err) {
