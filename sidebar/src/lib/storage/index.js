@@ -6,6 +6,7 @@ const storeTask = task => {
       newTasks = []
     } else newTasks = result.tasks
 
+    // newTasks = [] // uncomment this if you want to clear the local storage
     newTasks.push(task)
 
     chrome.storage.sync.set({ tasks: newTasks }, () => {

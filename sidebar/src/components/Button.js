@@ -1,18 +1,28 @@
 import styled from 'styled-components'
 
+const styleBackground = props => {
+  if (props.primary) {
+    return 'black'
+  } else if (props.text) {
+    return 'none'
+  } else {
+    return 'white'
+  }
+}
+
 const Button = styled.button`
-  background: ${props => (props.primary ? 'black' : 'white')};
+  background: ${props => styleBackground(props)};
   width: ${props => (props.fillWidth ? '100%' : 'auto')};
   color: ${props => (props.primary ? 'white' : 'black')};
-  border-radius: 5px;
-  border: solid #c4c4c4 1px;
-  height: 3.125em;
-  padding: 0 1em;
+  border: none;
+  height: 100%;
+  padding: 0 1.25em;
   outline: none;
-  font-size: 1em;
-  font-family: Cabin, sans-serif;
+  font-size: 1.25em;
   font-weight: 400;
+  font-family: Cabin;
   align-items: center;
+  text-decoration: ${props => (props.text ? 'underline' : 'none')}
 
   &:hover {
     cursor: pointer;

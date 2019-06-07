@@ -5,6 +5,7 @@ export const tasks = [
     duration: '30 minutes',
     isActive: true,
     isRecurrent: false,
+    completed: false,
     id: 1,
   },
   {
@@ -13,6 +14,7 @@ export const tasks = [
     duration: '30 minutes',
     isActive: true,
     isRecurrent: false,
+    completed: false,
     id: 2,
   },
   {
@@ -21,6 +23,7 @@ export const tasks = [
     duration: '30 minutes',
     isActive: true,
     isRecurrent: false,
+    completed: false,
     id: 3,
   },
 ]
