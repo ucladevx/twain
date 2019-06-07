@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import { Paragraph } from './Typography'
 
 const TaskWrapper = styled.div`
-  margin-bottom: 1.25em;
   display: flex;
   flex-direction: row;
+  margin: 0.5em 0;
 
   &:hover {
     cursor: pointer;

@@ -1,7 +1,8 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import TaskList from '../../components/TaskList'
-import EditTask from '../../components/EditTask'
+import TaskList from '../../views/TaskList'
+import EditTask from '../../views/EditTask'
+import Confirmation from '../../views/Confirmation'
 
 const views = {
   List: 'List',
@@ -10,7 +11,7 @@ const views = {
   Confirmation: 'Confirmation',
 }
 
-const ViewWrapper = styled.div`
+const Wrapper = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -47,7 +48,38 @@ class View extends React.Component {
     })
   }
 
+  backView = () => {
+    this.setState(state => {
+      let newView
+      switch (state.view) {
+        case views.EditTask:
+        case views.NewTask:
+        case views.Confirmation:
+          newView = views.List
+          break
+        default:
+          newView = views.List
+      }
+      return {
+        view: newView,
+      }
+    })
+  }
+
+  scheduleTasks = () => {
+    this.setState({
+      view: views.Confirmation,
+    })
+  }
+
   cancelEdit = () => {
+    this.setState({
+      view: views.List,
+      activeTask: null,
+    })
+  }
+
+  cancelSchedule = () => {
     this.setState({
       view: views.List,
       activeTask: null,
@@ -57,19 +89,27 @@ class View extends React.Component {
   renderView() {
     switch (this.state.view) {
       case views.List:
-        return <TaskList editTask={this.editTask} newTask={this.newTask} />
+        return (
+          <TaskList
+            editTask={this.editTask}
+            newTask={this.newTask}
+            scheduleTasks={this.scheduleTasks}
+          />
+        )
       case views.NewTask:
       case views.EditTask:
         return (
-          <EditTask tid={this.state.activeTask} cancelEdit={this.cancelEdit} />
+          <EditTask tid={this.state.activeTask} cancelEdit={this.backView} />
         )
+      case views.Confirmation:
+        return <Confirmation cancelSchedule={this.backView} />
       default:
-        return <TaskList editTask={this.viewEditTask} />
+        return null
     }
   }
 
   render() {
-    return <ViewWrapper>{this.renderView()}</ViewWrapper>
+    return <Wrapper>{this.renderView()}</Wrapper>
   }
 }
 
