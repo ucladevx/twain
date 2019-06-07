@@ -68,6 +68,7 @@ class View extends React.Component {
   }
 
   scheduleTasks = () => {
+    console.log('hello')
     this.setState({
       view: views.Confirmation,
     })
@@ -96,6 +97,7 @@ class View extends React.Component {
             storeTask={storeTask} //get rid of this
             editTask={this.editTask}
             newTask={this.newTask}
+            scheduleTasks={this.scheduleTasks}
           />
         )
       case views.NewTask:
