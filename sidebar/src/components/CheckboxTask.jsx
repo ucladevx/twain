@@ -18,7 +18,7 @@ const CheckBox = styled.div`
   width: 11px;
   border: solid 1px black;
   float: left;
-  margin: 0.875em 0.425em;
+  margin: 0.95em 0.425em;
   display: inline;
 `
 

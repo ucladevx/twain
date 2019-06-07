@@ -7,7 +7,7 @@ const CheckMarkWrapper = styled.div`
   height: 18px;
   width: 18px;
   float: left;
-  margin: 0.7em 0.215em;
+  margin: 0.75em 0.215em;
   display: inline;
 
   &:hover {
