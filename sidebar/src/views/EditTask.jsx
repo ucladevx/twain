@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Subheader } from '../components/Typography'
 import Button from '../components/Button'
 import BackButton from '../components/BackButton'
-import { tasks } from '../fakeTasks.js'
+// import { tasks } from '../fakeTasks.js'
 import {
   ViewWrapper,
   ViewHeader,
@@ -42,14 +42,17 @@ export default class EditTask extends React.Component {
         duration: '',
         isActive: false,
         isRecurrent: false,
+        id: this.props.tid,
       },
     }
   }
 
-  componentDidMount() {
-    const matches = tasks.filter(t => t.id === this.props.tid)
-    if (matches.length !== 0) {
-      const { name, dueDate, duration, isActive, isRecurrent } = matches[0]
+  async componentDidMount() {
+    console.log('this is props.tid: ', this.props.tid)
+    let match = await this.props.getSingleTask(this.props.tid)
+    // console.log('this is match in EditTask: ', match)
+    if (match.length !== 0) {
+      const { name, dueDate, duration, isActive, isRecurrent, id } = match[0]
 
       this.setState({
         editedTask: {
@@ -58,6 +61,7 @@ export default class EditTask extends React.Component {
           duration,
           isActive,
           isRecurrent,
+          id,
         },
       })
     }
@@ -93,6 +97,8 @@ export default class EditTask extends React.Component {
 
   saveTask = () => {
     window.alert('Updating task!', this.state.editedTask)
+    console.log('this is editedTask: ', this.state.editedTask)
+    this.props.storeTask(this.state.editedTask)
 
     /* connect with Redux in the future */
   }

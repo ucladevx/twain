@@ -11,7 +11,7 @@ import {
   ViewFooter,
 } from '../components/View'
 
-import { tasks } from '../fakeTasks.js'
+// import { tasks } from '../fakeTasks.js'
 
 const ButtonWrapper = styled.div`
   display: block;
@@ -42,10 +42,24 @@ export default class TaskList extends React.Component {
     )
   }
 
-  componentDidMount() {
-    this.setState({
-      tasks: tasks,
-    })
+  async componentDidMount() {
+    // ///test code, delete later
+    // let object = {
+    //   name: 'Study for midterm',
+    //   dueDate: '',
+    //   duration: '',
+    //   isActive: false,
+    //   isRecurrent: false,
+    // }
+    // this.props.storeTask(object)
+    // // //////////////
+    const tasks = await this.props.getTasks()
+    // console.log(this.props.getTasks)
+    if (this.props.getTasks() === undefined) return
+    else
+      this.setState({
+        tasks: tasks,
+      })
   }
 
   collapseSidebar = () => {

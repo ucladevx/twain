@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import TaskList from '../../views/TaskList'
 import EditTask from '../../views/EditTask'
 import Confirmation from '../../views/Confirmation'
+import { storeTask, getTasks, getSingleTask } from '../../lib/storage'
 
 const views = {
   List: 'List',
@@ -91,15 +92,22 @@ class View extends React.Component {
       case views.List:
         return (
           <TaskList
+            getTasks={getTasks}
+            storeTask={storeTask} //get rid of this
             editTask={this.editTask}
             newTask={this.newTask}
-            scheduleTasks={this.scheduleTasks}
           />
         )
       case views.NewTask:
       case views.EditTask:
         return (
-          <EditTask tid={this.state.activeTask} cancelEdit={this.backView} />
+          <EditTask
+            storeTask={storeTask}
+            getTasks={getTasks}
+            getSingleTask={getSingleTask}
+            tid={this.state.activeTask}
+            cancelEdit={this.backView}
+          />
         )
       case views.Confirmation:
         return <Confirmation cancelSchedule={this.backView} />
