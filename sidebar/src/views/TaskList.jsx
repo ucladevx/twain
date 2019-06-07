@@ -1,11 +1,15 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { Header, Paragraph } from './Typography'
-import Task from './Task'
-import CheckBoxTask from './CheckBoxTask'
-import Button from './Button'
-import ForwardButton from './ForwardButton'
-import { ViewWrapper, ViewHeader, ViewBody, ViewFooter } from './View'
+import { Header, Paragraph } from '../components/Typography'
+import Task from '../components/Task'
+import Button from '../components/Button'
+import ForwardButton from '../components/ForwardButton'
+import {
+  ViewWrapper,
+  ViewHeader,
+  ViewBody,
+  ViewFooter,
+} from '../components/View'
 
 import { tasks } from '../fakeTasks.js'
 
@@ -49,9 +53,13 @@ export default class TaskList extends React.Component {
   }
 
   renderTasks = () => {
-    return this.state.tasks.map(t => {
-      return <CheckBoxTask {...t} editTask={this.props.editTask} key={t.id} />
-    })
+    if (this.state.tasks.length) {
+      return this.state.tasks.map(t => {
+        return <Task {...t} editTask={this.props.editTask} key={t.id} />
+      })
+    } else {
+      return <Paragraph>You don't have any tasks. Add one now!</Paragraph>
+    }
   }
 
   render() {
@@ -65,7 +73,9 @@ export default class TaskList extends React.Component {
           {this.renderTasks()} {this.renderNewTaskButton()}
         </ViewBody>
         <ViewFooter>
-          <Button primary>Schedule</Button>
+          <Button onClick={this.props.scheduleTasks} primary>
+            Schedule
+          </Button>
         </ViewFooter>
       </ViewWrapper>
     )

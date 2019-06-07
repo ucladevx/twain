@@ -1,25 +1,35 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { Header, Subheader, Paragraph } from './Typography'
-import Button from './Button'
-import BackButton from './BackButton'
+import { Subheader } from '../components/Typography'
+import Button from '../components/Button'
+import BackButton from '../components/BackButton'
 import { tasks } from '../fakeTasks.js'
-import { ViewWrapper, ViewHeader, ViewBody, ViewFooter } from './View'
+import {
+  ViewWrapper,
+  ViewHeader,
+  ViewBody,
+  ViewFooter,
+} from '../components/View'
 
 const Input = styled.input`
   border: none;
   display: block;
   background-color: inherit;
-  font-size: inherit;
-  width: 90%;
   padding: 0;
   margin-bottom: 1.5em;
-  margin-top: -0.5em;
   font-family: Cabin;
 
   &:focus {
     outline: none;
   }
+`
+
+const ParagraphInput = styled(Input)`
+  font-size: 1.25em;
+`
+
+const HeaderInput = styled(Input)`
+  font-size: 1.5em;
 `
 
 export default class EditTask extends React.Component {
@@ -94,29 +104,23 @@ export default class EditTask extends React.Component {
           <BackButton onClick={this.props.cancelEdit}>Back</BackButton>
         </ViewHeader>
         <ViewBody>
-          <Header>
-            <Input
-              value={this.state.editedTask.name}
-              placeholder="Add task name"
-              onChange={this.onNameChange}
-            />
-          </Header>
+          <HeaderInput
+            value={this.state.editedTask.name}
+            placeholder="Add task name"
+            onChange={this.onNameChange}
+          />
           <Subheader>Duration</Subheader>
-          <Paragraph>
-            <Input
-              value={this.state.editedTask.duration}
-              placeholder="Add duration"
-              onChange={this.onDurationChange}
-            />
-          </Paragraph>
+          <ParagraphInput
+            value={this.state.editedTask.duration}
+            placeholder="Add duration"
+            onChange={this.onDurationChange}
+          />
           <Subheader>Due Date</Subheader>
-          <Paragraph>
-            <Input
-              value={this.state.editedTask.dueDate}
-              placeholder="Add due date"
-              onChange={this.onDueDateChange}
-            />
-          </Paragraph>
+          <ParagraphInput
+            value={this.state.editedTask.dueDate}
+            placeholder="Add due date"
+            onChange={this.onDueDateChange}
+          />
         </ViewBody>
         <ViewFooter>
           <Button onClick={this.saveTask} primary>
