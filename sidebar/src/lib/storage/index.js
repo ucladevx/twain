@@ -1,5 +1,5 @@
 /*global chrome*/
-const storeTask = task => {
+export const storeTask = task => {
   chrome.storage.sync.get(['tasks'], result => {
     let newTasks
     if (result.tasks === undefined) {
@@ -15,10 +15,9 @@ const storeTask = task => {
   })
 }
 
-const getTasks = () => {
+export const getTasks = () => {
   let promise = new Promise(resolve => {
     chrome.storage.sync.get(['tasks'], result => {
-      console.log(result.tasks)
       if (result.tasks === undefined) resolve([])
       else {
         resolve(result.tasks)
@@ -29,7 +28,15 @@ const getTasks = () => {
   //logic to return an empty
 }
 
-module.exports = {
-  storeTask,
-  getTasks,
+export const getSingleTask = async function(id) {
+  const tasks = await getTasks()
+  const match = tasks.filter(t => t.id === id)
+  console.log('this is match in getSingleTask: ', match)
+  return match
 }
+
+// module.exports = {
+//   storeTask,
+//   getTasks,
+//   getSingleTask,
+// }

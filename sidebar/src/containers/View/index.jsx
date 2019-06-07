@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import TaskList from '../../views/TaskList'
 import EditTask from '../../views/EditTask'
 import Confirmation from '../../views/Confirmation'
-import { storeTask, getTasks } from '../../lib/storage'
+import { storeTask, getTasks, getSingleTask } from '../../lib/storage'
 
 const views = {
   List: 'List',
@@ -104,6 +104,7 @@ class View extends React.Component {
           <EditTask
             storeTask={storeTask}
             getTasks={getTasks}
+            getSingleTask={getSingleTask}
             tid={this.state.activeTask}
             cancelEdit={this.backView}
           />
