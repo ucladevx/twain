@@ -1,6 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { Paragraph } from './Typography'
+import CheckMark from './CheckMark'
 
 const CheckBoxTaskWrapper = styled.div`
   display: flex;
@@ -13,11 +14,11 @@ const CheckBoxTaskWrapper = styled.div`
 `
 
 const CheckBox = styled.div`
-  height: 12px;
-  width: 12px;
+  height: 11px;
+  width: 11px;
   border: solid 1px black;
   float: left;
-  margin: 0.85em 0.3em;
+  margin: 0.875em 0.425em;
   display: inline;
 `
 
@@ -52,7 +53,7 @@ export default class CheckBoxTask extends React.Component {
     if (this.state.completed) {
       return (
         <CheckBoxTaskWrapper>
-          <CheckBox onClick={this.toggleCompleted} />
+          <CheckMark onClick={this.toggleCompleted} />
           <FinishedTask onClick={this.editTask}>{this.props.name}</FinishedTask>
         </CheckBoxTaskWrapper>
       )
