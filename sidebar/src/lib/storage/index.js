@@ -6,8 +6,12 @@ export const storeTask = task => {
       newTasks = []
     } else newTasks = result.tasks
 
+    console.log('this is the pushed task: ', task)
     // newTasks = [] // uncomment this if you want to clear the local storage
-    newTasks.push(task)
+
+    let index = newTasks.findIndex(t => t.id === task.id)
+    if (index === -1) newTasks.push(task)
+    else newTasks[index] = task
 
     chrome.storage.sync.set({ tasks: newTasks }, () => {
       console.log('DONE')

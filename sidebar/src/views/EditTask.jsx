@@ -50,9 +50,9 @@ export default class EditTask extends React.Component {
   async componentDidMount() {
     console.log('this is props.tid: ', this.props.tid)
     let match = await this.props.getSingleTask(this.props.tid)
-    console.log('this is match in EditTask: ', match)
+    // console.log('this is match in EditTask: ', match)
     if (match.length !== 0) {
-      const { name, dueDate, duration, isActive, isRecurrent } = match[0]
+      const { name, dueDate, duration, isActive, isRecurrent, id } = match[0]
 
       this.setState({
         editedTask: {
@@ -61,6 +61,7 @@ export default class EditTask extends React.Component {
           duration,
           isActive,
           isRecurrent,
+          id,
         },
       })
     }
@@ -96,6 +97,7 @@ export default class EditTask extends React.Component {
 
   saveTask = () => {
     window.alert('Updating task!', this.state.editedTask)
+    console.log('this is editedTask: ', this.state.editedTask)
     this.props.storeTask(this.state.editedTask)
 
     /* connect with Redux in the future */

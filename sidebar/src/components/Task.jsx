@@ -21,7 +21,7 @@ const TaskWrapper = styled.div`
 export default class Task extends React.Component {
   editTask = () => {
     const { id } = this.props
-    console.log('id in Task.jsx: ', id)
+    // console.log('id in Task.jsx: ', id)
     this.props.editTask(id)
   }
 
