@@ -86,7 +86,7 @@ def get_free_intervals(id):
             raise ValueError("Could not get events from Calendar API", status_code = 500)
         events = events_result.get('items', [])
 
-        return jsonify(formulate_open_timeslots(events, today))
+        return jsonify([timeslot.__dict__ for timeslot in formulate_open_timeslots(events, today)]), 200
 
 
     except ValueError as e:
@@ -95,7 +95,21 @@ def get_free_intervals(id):
     except Exception as e:
         raise Error("Could not connect to calendar API, perhaps due to invalid credentials/access_token --> Returned Error: {}".format(e), status_code = 400)
 
-    
+@routes_blueprint.route('/schedule/id=<id>', methods=['GET'])
+@cross_origin(supports_credentials=True)
+def schedule(id):
+    data = request.data
+    intervals = get_free_intervals(id).json
+    taskList = json.loads(data)
+    intervalsJson = json.dumps(intervals)
+    intervalsArray = json.loads(intervalsJson)
+    for i in taskList:   
+        duration = i['duration']
+        for j in intervalsArray:
+            if duration < j['duration']:
+                i['intervalId'] = j['id']
+                j['duration'] = j['duration'] - duration
+    return jsonify(taskList)
 
 @routes_blueprint.route('/calendar/id=<id>&start=<start_date>&end=<end_date>', methods=['GET'])
 @cross_origin(supports_credentials=True)
